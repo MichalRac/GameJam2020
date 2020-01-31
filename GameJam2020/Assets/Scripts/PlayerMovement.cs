@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float horizontal;
     public float vertical;
     public bool isGrounded;
+    private float maxTargetVelocityY = 2.5f;
 
     private Rigidbody2D myRigidbody;
     private float magnitude;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocityNorm;
     private CapsuleCollider2D myCollider;
     private float playerHalfHeight;
+    private float playerHalfWidth;
     private float threshold = 0.1f;
 
     void Start()
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<CapsuleCollider2D>();
         playerHalfHeight = myCollider.size.y /2f;
+        playerHalfWidth = myCollider.size.x / 2f;
     }
 
     void Update()
@@ -57,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && vertical > 0f)
             myRigidbody.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
 
-        targetVelocityY = myRigidbody.velocity.y;
+        targetVelocityY = Mathf.Clamp(myRigidbody.velocity.y,-maxTargetVelocityY, maxTargetVelocityY);
 
         targetVelocity = targetVelocityX * Vector2.right + targetVelocityY * Vector2.up;
         //myRigidbody.AddForce(velocityChange, ForceMode2D.Force);
@@ -85,21 +88,34 @@ public class PlayerMovement : MonoBehaviour
         var rayDist = 0.1f;
         isGrounded = false;
         var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
+        var playerFeetPosLeftSide = playerFeetPos - new Vector3(-playerHalfWidth, 0f, 0f);
+        var playerFeetPosRightSide = playerFeetPos - new Vector3(-playerHalfWidth, 0f, 0f);
+
         var filter = new ContactFilter2D
         {
             layerMask = LayerMask.GetMask("Default"),
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();
-        var hit = Physics2D.Raycast(playerFeetPos, Vector2.down, filter, results, rayDist);
+        Physics2D.Raycast(playerFeetPos, Vector2.down, filter, results, rayDist);
+        CheckResults(results);
+        Physics2D.Raycast(playerFeetPosLeftSide, Vector2.down, filter, results, rayDist);
+        CheckResults(results);
+        Physics2D.Raycast(playerFeetPosRightSide, Vector2.down, filter, results, rayDist);
+        CheckResults(results);
+        //Debug.DrawLine(playerFeetPos, playerFeetPos + Vector3.down * rayDist);
 
+    }
+
+    private void CheckResults(List<RaycastHit2D> results)
+    {
         for (int i = 0; i < results.Count; i++)
         {
             if (results[i].distance <= threshold)
+            {
                 isGrounded = true;
+                break;
+            }
         }
-
-        //Debug.DrawLine(playerFeetPos, playerFeetPos + Vector3.down * rayDist);
-
     }
 }
