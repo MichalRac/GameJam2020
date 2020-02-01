@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentJumpTime;
     private bool doubleJumped;
 
+
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        var rayDist = 0.01f;
+        var rayDist = 0.05f;
         isGrounded = false;
         var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
         var playerFeetPosLeftSide = playerFeetPos - new Vector3(-playerHalfWidth, 0f, 0f);
