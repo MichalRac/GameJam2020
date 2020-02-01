@@ -106,4 +106,13 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         //Debug.Log($"OnTriggerEnter2D with {other.transform.name} ");
     }
+
+    public void SnapTetrominoToPlace()
+    {
+        foreach (var piece in tetrominosPieces)
+        {
+            piece.SnapToPlaceIfPossible();
+        }
+    }
+
 }
