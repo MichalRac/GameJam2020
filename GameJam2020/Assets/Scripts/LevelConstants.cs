@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public static class LevelConstants
 {
     public static readonly int PIECE_SIZE = 8;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6897701324165920466}
   - component: {fileID: 5119238803797469738}
+  - component: {fileID: -3359193650847576375}
   m_Layer: 0
   m_Name: Tetrominos T HD
   m_TagString: Untagged
@@ -52,6 +53,27 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!50 &-3359193650847576375
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557672095475134087}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &681168447463316531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,7 +94,7 @@ PrefabInstance:
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
@@ -147,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
@@ -217,12 +239,12 @@ PrefabInstance:
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7643164506574213108, guid: ae92bcd669425db4fbe32f907cc79776,
         type: 3}

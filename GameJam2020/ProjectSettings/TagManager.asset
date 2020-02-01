@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 2331939089
+    locked: 0
+  - name: Tetrominos
+    uniqueID: 3523973339
+    locked: 0
+  - name: Player
+    uniqueID: 3652859383
+    locked: 0
