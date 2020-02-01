@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &3067259445855688394
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3929712868125667320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 08d8eb764d4f460499b5fea63ce8bae9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8663859979193116557
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,8 +173,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21214223, y: -0.036219597}
-  m_Size: {x: 1.0964122, y: 1.9068642}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!58 &8345579716165937227
 CircleCollider2D:
@@ -272,6 +291,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412bc6f61b90bac4ebf88016c61929b9, type: 3}
+--- !u!1 &3929712868125667320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7484543395472726859, guid: 412bc6f61b90bac4ebf88016c61929b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5861247552657863859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3929712868125667327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7484543395472726860, guid: 412bc6f61b90bac4ebf88016c61929b9,
