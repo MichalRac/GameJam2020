@@ -5,6 +5,7 @@ using UnityEngine;
 public class TetrominosPiece : MonoBehaviour
 {
     private Vector3 snappedPosition;
+    private SpriteRenderer mySprite;
 
     public Vector3 GetClosestVector()
     {
@@ -17,5 +18,11 @@ public class TetrominosPiece : MonoBehaviour
 
         snappedPosition = closestPos;
         transform.position = closestPos;
+    }
+
+    public void ChangeSpriteColor(Color32 colorToChange)
+    {
+        mySprite = transform.GetComponentInChildren<SpriteRenderer>();
+        mySprite.color = colorToChange;
     }
 }
