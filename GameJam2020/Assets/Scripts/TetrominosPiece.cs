@@ -19,11 +19,7 @@ public class TetrominosPiece : MonoBehaviour
         snappedPosition = closestPos;
         transform.position = closestPos;
 
-        var sr = gameObject.GetComponent<SpriteRenderer>();
-        if(sr != null)
-        {
-            sr.color = Color.white;
-        }
+        ChangeSpriteColor(GameSettingFetcher.instance.GetSettings.FIXED_TETROMINO_COLOR);
     }
 
     public void ChangeSpriteColor(Color32 colorToChange)

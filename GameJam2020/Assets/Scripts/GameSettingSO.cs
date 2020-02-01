@@ -9,4 +9,5 @@ public class GameSettingSO : ScriptableObject
     public int LEVEL_WIDTH = 30;
     public int LEVEL_HEIGHT = 24;
     public float TETROMINO_SPAWN_FREQUENCY = 4f;
+    public Color32 FIXED_TETROMINO_COLOR;
 }

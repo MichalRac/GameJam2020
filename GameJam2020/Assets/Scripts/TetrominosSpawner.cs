@@ -17,7 +17,8 @@ public class TetrominosSpawner : MonoBehaviour
         while(true)
         {
             var spawnPoint = new Vector3(Random.Range(1, settings.LEVEL_WIDTH - 1), settings.LEVEL_HEIGHT, 0);
-            Instantiate(GetRandomTetromino(), spawnPoint, Quaternion.identity, transform);
+            var newObject = GetRandomTetromino();
+            Instantiate(newObject, spawnPoint, newObject.transform.rotation, transform);
             yield return new WaitForSeconds(settings.TETROMINO_SPAWN_FREQUENCY);
         }
     }
