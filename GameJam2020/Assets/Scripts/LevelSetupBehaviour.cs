@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class LevelSetupBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject bg;
+    [SerializeField] private GameObject bgHolder;
+    [SerializeField] private SpriteRenderer emptySpotPrefab;
 
 
     private void Awake()
     {
-        ResizeBgToScreen();
+        SetupLevel();
     }
 
-    private void ResizeBgToScreen()
+    private void SetupLevel()
     {
-        var sr = bg.GetComponent<SpriteRenderer>();
-        if (sr == null) return;
+        var spotsVertical = LevelConstants.LEVEL_HEIGHT;
+        var spotsHorizontal = LevelConstants.LEVEL_WIDTH;
+        var pieceSize = LevelConstants.PIECE_SIZE;
 
-        transform.localScale = new Vector3(1, 1, 1);
+        Vector3 creationPos = Vector3.zero;
 
-        var width = sr.sprite.bounds.size.x;
-        var height = sr.sprite.bounds.size.y;
-
-        var worldScreenHeight = Camera.main.orthographicSize * 2.0;
-        var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-
-        var targetScale = new Vector3((float)worldScreenWidth / width, 1, (float)worldScreenHeight / height);
-        bg.transform.localScale = targetScale;
+        var bg = Instantiate(emptySpotPrefab, bgHolder.transform);
+        bg.size = new Vector2(spotsHorizontal * pieceSize, spotsVertical * pieceSize);
     }
 }
