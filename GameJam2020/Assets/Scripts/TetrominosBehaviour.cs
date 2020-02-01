@@ -7,7 +7,7 @@ public class TetrominosBehaviour : MonoBehaviour
     [SerializeField] List<TetrominosPiece> tetrominosPieces;
 
     public float UpdateTimeInterval = 1f; //in seconds
-    public float Distance = 8f;
+    public float Distance = 1f;
     private float currentTime;
     private bool canMoveNow;
 
@@ -38,7 +38,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
-        transform.Translate(new Vector3(0,-Distance,0f));
+        transform.Translate(new Vector3(0,-Distance,0f), Space.World);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -51,4 +51,13 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         //Debug.Log($"OnTriggerEnter2D with {other.transform.name} ");
     }
+
+    public void SnapTetrominoToPlace()
+    {
+        foreach (var piece in tetrominosPieces)
+        {
+            piece.SnapToPlaceIfPossible();
+        }
+    }
+
 }

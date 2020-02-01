@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8475705012613780239}
   - component: {fileID: 4236563617874046871}
+  - component: {fileID: 8719185052762203225}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -126,8 +127,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -770993957
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b39629af55d0d3846b369e716d8483ce, type: 3}
   m_Color: {r: 1, g: 0.056822363, b: 0, a: 1}
@@ -166,3 +167,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8719185052762203225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386747102472321067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730e80b9423cc3a4aaa919506cbc7d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,7 +19,7 @@ public class TetrominosSpawner : MonoBehaviour
     {
         while(true)
         {
-            Instantiate(GetRandomTetromino(), transform);
+            Instantiate(GetRandomTetromino(), spawnPoint, Quaternion.identity, transform);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
