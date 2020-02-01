@@ -438,7 +438,7 @@ MonoBehaviour:
   levelCamera: {fileID: 1909384955}
   borderColor:
     serializedVersion: 2
-    rgba: 4281791766
+    rgba: 4282861383
 --- !u!114 &1612686319
 MonoBehaviour:
   m_ObjectHideFlags: 0
