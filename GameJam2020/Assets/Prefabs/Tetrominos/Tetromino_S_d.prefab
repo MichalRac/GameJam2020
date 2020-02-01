@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 6042948204602963705, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
       propertyPath: m_Name
-      value: Tetromino_S_a
+      value: Tetromino_S_d
       objectReference: {fileID: 0}
     - target: {fileID: 6042948204602963705, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
@@ -305,17 +305,17 @@ PrefabInstance:
     - target: {fileID: 6042948204602963710, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6042948204602963710, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6042948204602963710, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6042948204602963710, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
@@ -335,7 +335,7 @@ PrefabInstance:
     - target: {fileID: 6042948204602963710, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: 6042948204602963711, guid: fbd0d88822fe99f42a14f9a816bf0a14,
         type: 3}
