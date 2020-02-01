@@ -64,7 +64,7 @@ public class TetrominosBehaviour : MonoBehaviour
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();
-        var rayDist = 1f;
+        var rayDist = 0.5f;
         var canMoveNow = false;
         for (int i = 0; i < tetrominosPieces.Count; i++)
         {
