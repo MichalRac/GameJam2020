@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRepairs : MonoBehaviour
 {
-
+    public float RepairRange = 5f;
     private List<TetrominosBehaviour> brokenTetrominosInRange = new List<TetrominosBehaviour>();
 
     void Start()
@@ -16,27 +16,6 @@ public class PlayerRepairs : MonoBehaviour
     void Update()
     {
         TryRepair();
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        TryAddTetrominos(other);
-    }
-
-    //private void OnTriggerStay2D(Collider2D other)
-    //{
-
-    //}
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        var tetromino = other.transform.GetComponent<TetrominosBehaviour>();
-        if (tetromino != null)
-        {
-            if (brokenTetrominosInRange.Contains(tetromino))
-                brokenTetrominosInRange.Remove(tetromino);
-        }
     }
 
     private void TryAddTetrominos(Collider2D other)
@@ -58,6 +37,20 @@ public class PlayerRepairs : MonoBehaviour
         //Debug.Log($"Repair isRepairBtnDown {isRepairBtnDown}");
         if (!isRepairBtnDown)
             return;
+
+        var filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
+            useLayerMask = true
+        };
+        var results = new List<RaycastHit2D>();
+
+        Physics2D.CircleCast(transform.position, RepairRange, Vector2.down, filter, results);
+
+        for (int i = 0; i < results.Count; i++)
+        {
+            TryAddTetrominos(results[i].collider);
+        }
 
         for (int i = 0; i < brokenTetrominosInRange.Count; i++)
         {
