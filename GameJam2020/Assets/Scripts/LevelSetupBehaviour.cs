@@ -10,13 +10,10 @@ public class LevelSetupBehaviour : MonoBehaviour
     private GameSettingSO gameSettingSO;
 
 
-    private void Awake()
-    {
-        gameSettingSO = GameSettingFetcher.instance.GetSettings;
-    }
-
     private void Start()
     {
+        gameSettingSO = GameSettingFetcher.instance.GetSettings;
+
         SetupLevel();
         CreateBorder();
     }
