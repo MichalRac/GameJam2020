@@ -216,7 +216,7 @@ MonoBehaviour:
   - {fileID: 582121593591266867, guid: 9dbeb37bdc9e2624d975f36f1770daf8, type: 3}
   - {fileID: 582121593591266867, guid: 63f783adbb09a0f49816c2aeadd0112b, type: 3}
   spawnInterval: 4
-  spawnPoint: {x: 0, y: 100, z: 0}
+  spawnPoint: {x: 15, y: 24, z: 0}
 --- !u!1 &1310052305
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,8 +356,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgHolder: {fileID: 863572979}
+  borderBlockPrefab: {fileID: 5249256530730006611, guid: 69a81c38cfc31ff4e94383b7c973069b,
+    type: 3}
   emptySpotPrefab: {fileID: 4289960804261080199, guid: 39b6c1d3dca3bf347acc83e0ee3cf4d3,
     type: 3}
+  gameSettingSO: {fileID: 11400000, guid: abac149c37b30c941925c1aa1492f0b0, type: 2}
 --- !u!114 &1612686318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +426,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 270
+  orthographic size: 30
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
