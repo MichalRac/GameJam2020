@@ -40,5 +40,11 @@ public class LevelSetupBehaviour : MonoBehaviour
         {
             Instantiate(borderBlockPrefab, new Vector3(i, -1, 0), Quaternion.identity, bgHolder.transform);
         }
+
+        for(int i = 0; i < gameSettingSO.LEVEL_HEIGHT; i++)
+        {
+            Instantiate(borderBlockPrefab, new Vector3(-1, i, 0), Quaternion.identity, bgHolder.transform);
+            Instantiate(borderBlockPrefab, new Vector3(gameSettingSO.LEVEL_WIDTH, i, 0), Quaternion.identity, bgHolder.transform);
+        }
     }
 }
