@@ -31,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator myAnimator;
 
+   [SerializeField]
+    private SpriteRenderer mySprite;
+
 
     void Start()
     {
@@ -40,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         playerHalfWidth = myCollider.size.x / 2f;
 
         myAnimator = GetComponentInChildren<Animator>();
+        mySprite = myAnimator.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -55,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         int directionModifier = horizontal > 0 ? 1 : -1;
 
-        targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
+        targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed * horizontal, Acceleration, dt);
         currentJumpTime += dt;
         if (isGrounded && jump || !isGrounded && jump && !doubleJumped)
         {
@@ -64,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
                 currentJumpTime = 0f;
                 myRigidbody.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
 
-                if(!isGrounded)
+                if (!isGrounded)
                     doubleJumped = true;
             }
         }
@@ -73,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
         targetVelocity = targetVelocityX * Vector2.right + targetVelocityY * Vector2.up;
         myRigidbody.velocity = targetVelocity;
 
-        if(isGrounded && targetVelocityX == 0f)
+        if (isGrounded && targetVelocityX == 0f)
         {
             myAnimator.SetBool("isWalking", false);
             myAnimator.SetBool("isAfloat", false);
         }
-        else if(isGrounded && targetVelocityX != 0)
+        else if (isGrounded && targetVelocityX != 0)
 
         {
             myAnimator.SetBool("isWalking", true);
@@ -88,6 +92,16 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             myAnimator.SetBool("isAfloat", true);
+        }
+
+        if (horizontal < 0.0f)
+        {
+
+            mySprite.flipX = true;
+        }
+        else if (horizontal >0f)
+        {
+            mySprite.flipX = false;
         }
     }
 
