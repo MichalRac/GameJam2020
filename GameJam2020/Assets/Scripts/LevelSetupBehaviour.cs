@@ -7,10 +7,15 @@ public class LevelSetupBehaviour : MonoBehaviour
     [SerializeField] private GameObject bgHolder;
     [SerializeField] private GameObject borderBlockPrefab;
     [SerializeField] private SpriteRenderer emptySpotPrefab;
-    [SerializeField] private GameSettingSO gameSettingSO;
+    private GameSettingSO gameSettingSO;
 
 
     private void Awake()
+    {
+        gameSettingSO = GameSettingFetcher.instance.GetSettings;
+    }
+
+    private void Start()
     {
         SetupLevel();
         CreateBorder();
@@ -34,6 +39,12 @@ public class LevelSetupBehaviour : MonoBehaviour
         for(int i = 0; i < gameSettingSO.LEVEL_WIDTH; i++)
         {
             Instantiate(borderBlockPrefab, new Vector3(i, -1, 0), Quaternion.identity, bgHolder.transform);
+        }
+
+        for(int i = 0; i < gameSettingSO.LEVEL_HEIGHT; i++)
+        {
+            Instantiate(borderBlockPrefab, new Vector3(-1, i, 0), Quaternion.identity, bgHolder.transform);
+            Instantiate(borderBlockPrefab, new Vector3(gameSettingSO.LEVEL_WIDTH, i, 0), Quaternion.identity, bgHolder.transform);
         }
     }
 }
