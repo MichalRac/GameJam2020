@@ -93,7 +93,7 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         var filter = new ContactFilter2D
         {
-            layerMask = LayerMask.GetMask("Default"),
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();

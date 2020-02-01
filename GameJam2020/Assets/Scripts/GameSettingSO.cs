@@ -10,4 +10,6 @@ public class GameSettingSO : ScriptableObject
     public int LEVEL_HEIGHT = 24;
     public float TETROMINO_SPAWN_FREQUENCY = 4f;
     public Color32 FIXED_TETROMINO_COLOR;
+    public string TETROMINOS_LAYER_NAME = "Tetrominos";
+    public string DEFAULT_LAYER_NAME = "Default";
 }
