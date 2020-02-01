@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8350463902519036978}
   - component: {fileID: 8663859979193116556}
   - component: {fileID: 3603707914683032400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_Rasputin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,8 +140,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.5, y: 2}
+  m_Offset: {x: -0.21214223, y: -0.036219597}
+  m_Size: {x: 1.0964122, y: 1.9068642}
   m_Direction: 0
 --- !u!1001 &5861247552657863859
 PrefabInstance:

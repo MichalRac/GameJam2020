@@ -322,16 +322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3929712868125667326, guid: 93183a68b15c9a54a8547995bf97150f,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -642107913
-      objectReference: {fileID: 0}
-    - target: {fileID: 3929712868125667326, guid: 93183a68b15c9a54a8547995bf97150f,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8663859979193116554, guid: 93183a68b15c9a54a8547995bf97150f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -392,11 +382,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Rasputin
       objectReference: {fileID: 0}
-    - target: {fileID: 8663859979193116557, guid: 93183a68b15c9a54a8547995bf97150f,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93183a68b15c9a54a8547995bf97150f, type: 3}
 --- !u!1 &1612686315
@@ -451,6 +436,9 @@ MonoBehaviour:
   emptySpotPrefab: {fileID: 4289960804261080199, guid: 39b6c1d3dca3bf347acc83e0ee3cf4d3,
     type: 3}
   levelCamera: {fileID: 1909384955}
+  borderColor:
+    serializedVersion: 2
+    rgba: 4281791766
 --- !u!114 &1612686319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909384953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
+  m_LocalPosition: {x: 0, y: 11, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -562,9 +550,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AssetsPPU: 32
   m_RefResolutionX: 800
-  m_RefResolutionY: 600
-  m_UpscaleRT: 1
-  m_PixelSnapping: 0
+  m_RefResolutionY: 800
+  m_UpscaleRT: 0
+  m_PixelSnapping: 1
   m_CropFrameX: 0
   m_CropFrameY: 1
   m_StretchFill: 0
