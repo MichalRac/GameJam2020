@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetrominosPieces: []
   UpdateTimeInterval: 1
-  Distance: 8
+  Distance: 1
 --- !u!1001 &1013149441630015433
 PrefabInstance:
   m_ObjectHideFlags: 0

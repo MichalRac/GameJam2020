@@ -7,7 +7,7 @@ public class TetrominosBehaviour : MonoBehaviour
     [SerializeField] List<TetrominosPiece> tetrominosPieces;
 
     public float UpdateTimeInterval = 1f; //in seconds
-    public float Distance = 8f;
+    public float Distance = 1f;
     private float currentTime;
     private bool canMoveNow;
 
