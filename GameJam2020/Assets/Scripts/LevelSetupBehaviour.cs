@@ -7,6 +7,8 @@ public class LevelSetupBehaviour : MonoBehaviour
     [SerializeField] private GameObject bgHolder;
     [SerializeField] private GameObject borderBlockPrefab;
     [SerializeField] private SpriteRenderer emptySpotPrefab;
+    [SerializeField] private Camera levelCamera;
+    [SerializeField] private Color32 borderColor;
     private GameSettingSO gameSettingSO;
 
 
@@ -29,19 +31,25 @@ public class LevelSetupBehaviour : MonoBehaviour
         var bg = Instantiate(emptySpotPrefab, bgHolder.transform);
         bg.size = new Vector2(spotsHorizontal + 2, spotsVertical + 2);
         bg.transform.Translate(new Vector3(-1, -1, 0));
+        levelCamera.transform.position = new Vector3((spotsHorizontal) / 2, levelCamera.transform.position.y, levelCamera.transform.position.z);
     }
 
     private void CreateBorder()
     {
         for(int i = 0; i < gameSettingSO.LEVEL_WIDTH; i++)
         {
-            Instantiate(borderBlockPrefab, new Vector3(i, -1, 0), Quaternion.identity, bgHolder.transform);
+            GameObject borderPiece = new GameObject();
+            borderPiece = Instantiate(borderBlockPrefab, new Vector3(i, -1, 0), Quaternion.identity, bgHolder.transform);
+            borderPiece.GetComponent<TetrominosPiece>().ChangeSpriteColor(borderColor);
         }
 
         for(int i = 0; i < gameSettingSO.LEVEL_HEIGHT; i++)
         {
-            Instantiate(borderBlockPrefab, new Vector3(-1, i, 0), Quaternion.identity, bgHolder.transform);
-            Instantiate(borderBlockPrefab, new Vector3(gameSettingSO.LEVEL_WIDTH, i, 0), Quaternion.identity, bgHolder.transform);
+            GameObject borderPiece = new GameObject();
+            borderPiece = Instantiate(borderBlockPrefab, new Vector3(-1, i, 0), Quaternion.identity, bgHolder.transform);
+            borderPiece.GetComponent<TetrominosPiece>().ChangeSpriteColor(borderColor);
+            borderPiece = Instantiate(borderBlockPrefab, new Vector3(gameSettingSO.LEVEL_WIDTH, i, 0), Quaternion.identity, bgHolder.transform);
+            borderPiece.GetComponent<TetrominosPiece>().ChangeSpriteColor(borderColor);
         }
     }
 }
