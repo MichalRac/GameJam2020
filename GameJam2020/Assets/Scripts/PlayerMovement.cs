@@ -51,19 +51,9 @@ public class PlayerMovement : MonoBehaviour
         //var vertical = Input.GetAxis("Vertical");
         var jump = Input.GetButtonDown("Jump");
 
+        ProcessTetrominoFixAction();
+
         int directionModifier = horizontal > 0 ? 1 : -1;
-
-        if (Input.GetButton("Fire2"))
-        {
-            var raycastHit = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, transform.position.y - 1));
-            var go = raycastHit.collider.gameObject.GetComponent<TetrominosBehaviour>();
-
-            if (go != null)
-            {
-                go.SnapTetrominoToPlace();
-            }
-        }
-
 
         targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
         currentJumpTime += dt;
@@ -98,6 +88,35 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             myAnimator.SetBool("isAfloat", true);
+        }
+    }
+
+    private void ProcessTetrominoFixAction()
+    {
+        if (Input.GetButton("Fire3"))
+        {
+
+            var tetrominoFilter = new ContactFilter2D
+            {
+                layerMask = LayerMask.GetMask("Tetrominos"),
+                useLayerMask = true
+            };
+
+            var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
+            var results = new List<RaycastHit2D>();
+            Physics2D.Raycast(playerFeetPos, Vector2.down, tetrominoFilter, results, 0.5f);
+
+            foreach (var result in results)
+            {
+                var go = result.collider.gameObject.GetComponent<TetrominosBehaviour>();
+
+                if (go != null)
+                {
+                    go.SnapTetrominoToPlace();
+                    go.StopBlocks();
+                    doubleJumped = false;
+                }
+            }
         }
     }
 

@@ -16,3 +16,6 @@ MonoBehaviour:
   LEVEL_WIDTH: 20
   LEVEL_HEIGHT: 24
   TETROMINO_SPAWN_FREQUENCY: 4
+  FIXED_TETROMINO_COLOR:
+    serializedVersion: 2
+    rgba: 4288782753
