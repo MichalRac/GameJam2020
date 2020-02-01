@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0848a12c112525f4a8f20f4ee6e54a95, type: 3}
   m_Name: GameSettingsSO
   m_EditorClassIdentifier: 
-  PIECE_SIZE: 8
+  PIECE_SIZE: 1
   LEVEL_WIDTH: 40
   LEVEL_HEIGHT: 24
+  TETROMINO_SPAWN_FREQUENCY: 4
