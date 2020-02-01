@@ -61,7 +61,8 @@ public class PlayerRepairs : MonoBehaviour
 
         for (int i = 0; i < brokenTetrominosInRange.Count; i++)
         {
-            brokenTetrominosInRange[i].RepairBlocks();
+            if(brokenTetrominosInRange[i].isBroken)
+                brokenTetrominosInRange[i].RepairBlocks();
         }
 
     }

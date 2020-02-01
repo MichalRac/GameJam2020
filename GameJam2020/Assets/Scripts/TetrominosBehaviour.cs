@@ -19,6 +19,8 @@ public class TetrominosBehaviour : MonoBehaviour
     private float blockLifeTime;
     private bool wasBrokenThisGame;
 
+
+
     public void Start()
     {
         wasBrokenThisGame = false;
@@ -40,16 +42,25 @@ public class TetrominosBehaviour : MonoBehaviour
             }
         }
         pieceHeight = tetrominosPieces.FirstOrDefault().GetComponent<BoxCollider2D>().size.y;
-
+        //Debug.Log($"Start {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
     }
 
     public void Update()
     {
+
         if (!isBroken)
         {
+            if (!CheckCanMoveToNextPosition())
+            {
+                myRigidbody.gravityScale = 1f;
+                //Debug.Log($"Update !CheckCanMoveToNextPosition {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
+                return;
+            }
+
             blockLifeTime += Time.deltaTime;
             if (blockLifeTime > Random.Range(10, 20))
             {
+                
                 blockLifeTime = 0f;
                 BrokeBlocksRandom();
             }
@@ -58,14 +69,15 @@ public class TetrominosBehaviour : MonoBehaviour
         }
     }
 
+    private bool IsRotated90Degrees()
+    {
+        if ((transform.eulerAngles.z % 90).Equals(0f))
+            return true;
+        return false;
+    }
 
     private void UpdateTetrominosPositions()
     {
-        if (!CheckCanMoveToNextPosition())
-        {
-            myRigidbody.gravityScale = 1f;
-            return;
-        }
 
         currentTime += Time.deltaTime;
         if (currentTime > UpdateTimeInterval)
@@ -75,16 +87,18 @@ public class TetrominosBehaviour : MonoBehaviour
         }
     }
 
+    private bool canMoveNow;
+
     private bool CheckCanMoveToNextPosition()
     {
         var filter = new ContactFilter2D
         {
-            layerMask = LayerMask.GetMask("Default"),
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();
         var rayDist = 0.5f;
-        var canMoveNow = false;
+        canMoveNow = false;
         for (int i = 0; i < tetrominosPieces.Count; i++)
         {
             var pos = tetrominosPieces[i].transform.position;
@@ -137,6 +151,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
+        SnapTetrominoToPlace();
         myRigidbody.velocity = Vector2.zero;
         transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
@@ -144,6 +159,9 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void SnapTetrominoToPlace()
     {
+        if (!IsRotated90Degrees())
+            return;
+
         foreach (var piece in tetrominosPieces)
         {
             piece.SnapToPlaceIfPossible();
@@ -165,12 +183,14 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         if(wasBrokenThisGame)
             return;
-        
+
         var randomBrokeness = Random.Range(0, 2);
         brokenesIndex = randomBrokeness;
         switch (randomBrokeness)
         {
             case 0:
+                if (!IsRotated90Degrees())
+                    return;
                 SnapTetrominoToPlace();
                 StopBlocks();
             break;
@@ -181,13 +201,12 @@ public class TetrominosBehaviour : MonoBehaviour
                 StopBlocks();
             break;
         }
-
+        wasBrokenThisGame = true;
         ChangeColorForBlocks(FrozenPieceColor);
     }
 
     public void RepairBlocks()
     {
-        wasBrokenThisGame = true;
         switch (brokenesIndex)
         {
             case 0:
@@ -202,7 +221,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
         }
         ChangeColorForBlocks(defaultColor);
-
+        SnapTetrominoToPlace();
     }
 
     public void StopBlocks()
@@ -223,6 +242,7 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         isBroken = true;
         myRigidbody.gravityScale = 1f;
+        //Debug.Log($"FallDownBlocks {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
     }
 
     public void RepairFallDownBLocks()
