@@ -7,10 +7,15 @@ public class LevelSetupBehaviour : MonoBehaviour
     [SerializeField] private GameObject bgHolder;
     [SerializeField] private GameObject borderBlockPrefab;
     [SerializeField] private SpriteRenderer emptySpotPrefab;
-    [SerializeField] private GameSettingSO gameSettingSO;
+    private GameSettingSO gameSettingSO;
 
 
     private void Awake()
+    {
+        gameSettingSO = GameSettingFetcher.instance.GetSettings;
+    }
+
+    private void Start()
     {
         SetupLevel();
         CreateBorder();

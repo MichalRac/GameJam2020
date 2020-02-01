@@ -6,10 +6,6 @@ public class TetrominosSpawner : MonoBehaviour
 {
     [SerializeField] private List<TetrominosBehaviour> tetrominosPrefabs;
 
-    [SerializeField] private float spawnInterval;
-
-    [SerializeField] Vector3 spawnPoint;
-
     private void Awake()
     {
         StartCoroutine("Spawn");
@@ -17,10 +13,12 @@ public class TetrominosSpawner : MonoBehaviour
 
     private IEnumerator Spawn()
     {
+        var settings = GameSettingFetcher.instance.GetSettings;
         while(true)
         {
+            var spawnPoint = new Vector3(Random.Range(1, settings.LEVEL_WIDTH - 1), settings.LEVEL_HEIGHT, 0);
             Instantiate(GetRandomTetromino(), spawnPoint, Quaternion.identity, transform);
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(settings.TETROMINO_SPAWN_FREQUENCY);
         }
     }
 
