@@ -411,7 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1612686316}
   - component: {fileID: 1612686317}
-  - component: {fileID: 1612686318}
+  - component: {fileID: 1612686319}
   m_Layer: 0
   m_Name: LevelRoot
   m_TagString: Untagged
@@ -452,8 +452,7 @@ MonoBehaviour:
     type: 3}
   emptySpotPrefab: {fileID: 4289960804261080199, guid: 39b6c1d3dca3bf347acc83e0ee3cf4d3,
     type: 3}
-  gameSettingSO: {fileID: 11400000, guid: abac149c37b30c941925c1aa1492f0b0, type: 2}
---- !u!114 &1612686318
+--- !u!114 &1612686319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -462,9 +461,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1612686315}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e56f17217596d4da6a41742139eecf, type: 3}
+  m_Script: {fileID: 11500000, guid: 5daf84e26b28f204bbf5a8bad98d1bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSetting: {fileID: 11400000, guid: 58c8d17e20151c64e928fd39f22554ad, type: 2}
 --- !u!1 &1909384953
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,4 +8,5 @@ public class GameSettingSO : ScriptableObject
     public int PIECE_SIZE = 8;
     public int LEVEL_WIDTH = 30;
     public int LEVEL_HEIGHT = 24;
+    public float TETROMINO_SPAWN_FREQUENCY = 4f;
 }
