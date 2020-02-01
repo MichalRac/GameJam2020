@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentJumpTime;
     private bool doubleJumped;
 
+    private Animator myAnimator;
+
 
     void Start()
     {
@@ -36,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider2D>();
         playerHalfHeight = myCollider.size.y /2f;
         playerHalfWidth = myCollider.size.x / 2f;
+
+        myAnimator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -79,6 +83,22 @@ public class PlayerMovement : MonoBehaviour
         targetVelocity = targetVelocityX * Vector2.right + targetVelocityY * Vector2.up;
         myRigidbody.velocity = targetVelocity;
 
+        if(isGrounded && targetVelocityX == 0f)
+        {
+            myAnimator.SetBool("isWalking", false);
+            myAnimator.SetBool("isAfloat", false);
+        }
+        else if(isGrounded && targetVelocityX != 0)
+
+        {
+            myAnimator.SetBool("isWalking", true);
+            myAnimator.SetBool("isAfloat", false);
+        }
+
+        else
+        {
+            myAnimator.SetBool("isAfloat", true);
+        }
     }
 
 
