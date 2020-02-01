@@ -38,7 +38,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
-        transform.Translate(new Vector3(0,-Distance,0f));
+        transform.Translate(new Vector3(0,-Distance,0f), Space.World);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

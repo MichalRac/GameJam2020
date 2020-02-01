@@ -22,6 +22,6 @@ public class LevelSetupBehaviour : MonoBehaviour
         Vector3 creationPos = Vector3.zero;
 
         var bg = Instantiate(emptySpotPrefab, bgHolder.transform);
-        bg.size = new Vector2(spotsHorizontal * pieceSize, spotsVertical * pieceSize);
+        bg.size = new Vector2(spotsHorizontal, spotsVertical);
     }
 }
