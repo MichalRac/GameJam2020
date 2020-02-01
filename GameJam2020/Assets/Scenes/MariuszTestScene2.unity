@@ -1301,8 +1301,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1669,8 +1669,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2650,8 +2650,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2850,8 +2850,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3226,22 +3226,22 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 383107066}
     m_ColliderPaths:
-    - - X: 624997
+    - - X: 624996
         Y: -625000
       - X: 624997
-        Y: 625000
-      - X: -625000
+        Y: 624999
+      - X: -624999
         Y: 624997
       - X: -624997
-        Y: -625000
+        Y: -624999
   - m_Collider: {fileID: 1994935216}
     m_ColliderPaths:
     - - X: 2024997
         Y: -625000
       - X: 2024997
-        Y: 625000
+        Y: 624999
       - X: 775000
-        Y: 624997
+        Y: 624996
       - X: 775003
         Y: -625000
   - m_Collider: {fileID: 2091422298}
@@ -3249,38 +3249,38 @@ CompositeCollider2D:
     - - X: 3424997
         Y: -625000
       - X: 3424997
-        Y: 625000
+        Y: 624999
       - X: 2175000
-        Y: 624997
+        Y: 624996
       - X: 2175003
         Y: -625000
   - m_Collider: {fileID: 693274945}
     m_ColliderPaths:
     - - X: 3424997
-        Y: 775000
-      - X: 3424997
-        Y: 2025000
+        Y: 774999
+      - X: 3424998
+        Y: 2024999
       - X: 2175000
-        Y: 2024997
+        Y: 2024996
       - X: 2175003
-        Y: 775000
+        Y: 774999
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.3424994, y: 0.0775}
-      - {x: 0.3424994, y: 0.2025}
-      - {x: 0.2175, y: 0.2024994}
-      - {x: 0.2175006, y: 0.0775}
-    - - {x: 0.0624994, y: -0.0625}
-      - {x: 0.0624994, y: 0.0625}
-      - {x: -0.0625, y: 0.0624994}
-      - {x: -0.0624994, y: -0.0625}
+    - - {x: 0.3424994, y: 0.077499904}
+      - {x: 0.3424995, y: 0.2024999}
+      - {x: 0.2175, y: 0.2024993}
+      - {x: 0.2175006, y: 0.077499904}
+    - - {x: 0.0624993, y: -0.0625}
+      - {x: 0.0624994, y: 0.0624999}
+      - {x: -0.0624999, y: 0.0624994}
+      - {x: -0.0624994, y: -0.0624999}
     - - {x: 0.2024994, y: -0.0625}
-      - {x: 0.2024994, y: 0.0625}
-      - {x: 0.0775, y: 0.0624994}
+      - {x: 0.2024994, y: 0.0624999}
+      - {x: 0.0775, y: 0.0624993}
       - {x: 0.077500604, y: -0.0625}
     - - {x: 0.3424994, y: -0.0625}
-      - {x: 0.3424994, y: 0.0625}
-      - {x: 0.2175, y: 0.0624994}
+      - {x: 0.3424994, y: 0.0624999}
+      - {x: 0.2175, y: 0.0624993}
       - {x: 0.2175006, y: -0.0625}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.0000005
@@ -3353,8 +3353,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5233,8 +5233,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5601,8 +5601,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5709,8 +5709,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6350,8 +6350,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6550,8 +6550,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6709,8 +6709,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7412,8 +7412,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7571,8 +7571,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7641,8 +7641,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7749,8 +7749,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -8810,13 +8810,13 @@ CompositeCollider2D:
         Y: -625000
   - m_Collider: {fileID: 634240188}
     m_ColliderPaths:
-    - - X: 2024997
+    - - X: 2024996
         Y: -625000
-      - X: 2024997
+      - X: 2024996
         Y: 625000
-      - X: 775000
+      - X: 774999
         Y: 624997
-      - X: 775003
+      - X: 775002
         Y: -625000
   - m_Collider: {fileID: 2069591500}
     m_ColliderPaths:
@@ -8848,10 +8848,10 @@ CompositeCollider2D:
       - {x: 0.0624994, y: 0.0625}
       - {x: -0.0625, y: 0.0624994}
       - {x: -0.0624994, y: -0.0625}
-    - - {x: 0.2024994, y: -0.0625}
-      - {x: 0.2024994, y: 0.0625}
-      - {x: 0.0775, y: 0.0624994}
-      - {x: 0.077500604, y: -0.0625}
+    - - {x: 0.2024993, y: -0.0625}
+      - {x: 0.2024993, y: 0.0625}
+      - {x: 0.077499904, y: 0.0624994}
+      - {x: 0.0775005, y: -0.0625}
     - - {x: 0.3424994, y: -0.0625}
       - {x: 0.3424994, y: 0.0625}
       - {x: 0.2175, y: 0.0624994}
@@ -9057,8 +9057,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -9923,8 +9923,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10031,8 +10031,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10659,8 +10659,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10767,8 +10767,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -12175,8 +12175,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -14103,8 +14103,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -14471,8 +14471,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15384,19 +15384,19 @@ CompositeCollider2D:
     m_ColliderPaths:
     - - X: 2024997
         Y: -625000
-      - X: 2024997
+      - X: 2024998
         Y: 624999
-      - X: 775000
-        Y: 624996
+      - X: 775001
+        Y: 624997
       - X: 775003
         Y: -625000
   - m_Collider: {fileID: 1249435126}
     m_ColliderPaths:
-    - - X: 3424997
+    - - X: 3424996
         Y: -625000
-      - X: 3424997
+      - X: 3424996
         Y: 624999
-      - X: 2175000
+      - X: 2174999
         Y: 624996
       - X: 2175002
         Y: -625000
@@ -15417,12 +15417,12 @@ CompositeCollider2D:
       - {x: -0.0624999, y: 0.0624994}
       - {x: -0.0624994, y: -0.0624999}
     - - {x: 0.2024994, y: -0.0625}
-      - {x: 0.2024994, y: 0.0624999}
-      - {x: 0.0775, y: 0.0624993}
+      - {x: 0.20249951, y: 0.0624999}
+      - {x: 0.0775001, y: 0.0624994}
       - {x: 0.077500604, y: -0.0625}
-    - - {x: 0.3424994, y: -0.0625}
-      - {x: 0.3424994, y: 0.0624999}
-      - {x: 0.2175, y: 0.0624993}
+    - - {x: 0.34249932, y: -0.0625}
+      - {x: 0.34249932, y: 0.0624999}
+      - {x: 0.2174999, y: 0.0624993}
       - {x: 0.21750051, y: -0.0625}
     - - {x: 0.34249932, y: -0.2025}
       - {x: 0.34249932, y: -0.0775}
@@ -15499,8 +15499,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15607,8 +15607,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15715,8 +15715,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15823,8 +15823,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15931,8 +15931,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -16313,21 +16313,21 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1419277086}
     m_ColliderPaths:
-    - - X: -1735002
-        Y: 845001
-      - X: -1735002
-        Y: 2095001
-      - X: -2984999
-        Y: 2094998
+    - - X: -1735003
+        Y: 845000
+      - X: -1735003
+        Y: 2095000
+      - X: -2985000
+        Y: 2094997
       - X: -2984997
-        Y: 845001
+        Y: 845000
   - m_Collider: {fileID: 1107569673}
     m_ColliderPaths:
-    - - X: -335002
+    - - X: -335003
         Y: 845000
-      - X: -335002
+      - X: -335003
         Y: 2095000
-      - X: -1584999
+      - X: -1585000
         Y: 2094997
       - X: -1584997
         Y: 845000
@@ -16353,13 +16353,13 @@ CompositeCollider2D:
         Y: 845000
   m_CompositePaths:
     m_Paths:
-    - - {x: -0.17350051, y: 0.084500104}
-      - {x: -0.17350051, y: 0.2095001}
-      - {x: -0.2984999, y: 0.20949951}
-      - {x: -0.2984994, y: 0.084500104}
-    - - {x: -0.0335005, y: 0.0845}
-      - {x: -0.0335005, y: 0.2095}
-      - {x: -0.1584999, y: 0.2094994}
+    - - {x: -0.1735006, y: 0.0845}
+      - {x: -0.1735006, y: 0.2095}
+      - {x: -0.2985, y: 0.2094994}
+      - {x: -0.2984994, y: 0.0845}
+    - - {x: -0.0335006, y: 0.0845}
+      - {x: -0.0335006, y: 0.2095}
+      - {x: -0.1585, y: 0.2094994}
       - {x: -0.1584994, y: 0.0845}
     - - {x: 0.1064994, y: 0.0845}
       - {x: 0.1064994, y: 0.2095}
