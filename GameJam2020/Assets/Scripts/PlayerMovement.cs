@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float threshold = 0.1f;
     private float jumpTimeThreshold = 0.3f; //how often can you jump?
     private float currentJumpTime;
+    private bool isJumpNow;
 
     void Start()
     {
@@ -42,8 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
         var dt = Time.deltaTime;
         var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-
+        //var vertical = Input.GetAxis("Vertical");
+        isJumpNow = Input.GetButtonDown("Jump");
         targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
 
         //targetVelocityY = IncrementTowards(targetVelocityY, MoveSpeed * vertical, Acceleration, dt);
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         //magnitude = Mathf.Clamp(velocityChange.magnitude, -MaxMoveSpeed, MaxMoveSpeed);
         //velocityChange = velocityNorm * magnitude;
         currentJumpTime += dt;
-        if (isGrounded && vertical > 0f)
+        if (isGrounded && isJumpNow)
         {
             if (currentJumpTime > jumpTimeThreshold)
             {
