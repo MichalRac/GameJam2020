@@ -7,6 +7,11 @@ public static class GridManager
 {
     public static Dictionary<Vector2Int, TetrominosPiece> tetromnoGrid = new Dictionary<Vector2Int, TetrominosPiece>();
 
+    public static void ClearOnStartUp()
+    {
+        tetromnoGrid.Clear();
+    }
+
     public static void AddTetrominoAtPosition(Vector2Int pos, TetrominosPiece piece)
     {
         tetromnoGrid.Add(pos, piece);
