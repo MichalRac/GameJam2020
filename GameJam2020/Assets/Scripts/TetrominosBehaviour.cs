@@ -17,10 +17,11 @@ public class TetrominosBehaviour : MonoBehaviour
     private SpriteRenderer myRenderer;
     public bool isBroken;
     private float blockLifeTime;
-
+    private bool wasBrokenThisGame;
 
     public void Start()
     {
+        wasBrokenThisGame = false;
         myRenderer = GetComponentInChildren<SpriteRenderer>();
         defaultColor = myRenderer.color;
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -160,11 +161,15 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void BrokeBlocksRandom()
     {
+        if(wasBrokenThisGame)
+            return;
+        
         var randomBrokeness = Random.Range(0, 2);
         brokenesIndex = randomBrokeness;
         switch (randomBrokeness)
         {
             case 0:
+                SnapTetrominoToPlace();
                 StopBlocks();
             break;
             case 1:
@@ -180,11 +185,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void RepairBlocks()
     {
-        var isRepairBtnDown = Input.GetButtonDown("Repair");
-        //Debug.Log($"Repair isRepairBtnDown {isRepairBtnDown}");
-        if (!isRepairBtnDown)
-            return;
-
+        wasBrokenThisGame = true;
         switch (brokenesIndex)
         {
             case 0:
@@ -222,8 +223,9 @@ public class TetrominosBehaviour : MonoBehaviour
         myRigidbody.gravityScale = 1f;
     }
 
-    private void RepairFallDownBLocks()
+    public void RepairFallDownBLocks()
     {
+        
         isBroken = false;
     }
 }
