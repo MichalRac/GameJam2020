@@ -8,6 +8,8 @@ public class TetrominosBehaviour : MonoBehaviour
     [SerializeField] List<TetrominosPiece> tetrominosPieces = new List<TetrominosPiece>();
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
+    public Color32 FrozenPieceColor = new Color32(255, 255, 255, 255);
+
     public float Distance = 1f;
     private float currentTime;
     private float pieceHeight;
