@@ -136,6 +136,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
+        myRigidbody.velocity = Vector2.zero;
         transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
 
