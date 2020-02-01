@@ -48,12 +48,14 @@ public class TetrominosBehaviour : MonoBehaviour
         if (!isBroken)
         {
             blockLifeTime += Time.deltaTime;
+            
             if (blockLifeTime > Random.Range(10, 20))
             {
                 blockLifeTime = 0f;
                 BrokeBlocksRandom();
             }
             else
+            
                 UpdateTetrominosPositions();
         }
     }
@@ -142,11 +144,11 @@ public class TetrominosBehaviour : MonoBehaviour
     }
 
 
-    public void SnapTetrominoToPlace()
+    public void SnapTetrominoToPlace(bool pernament)
     {
         foreach (var piece in tetrominosPieces)
         {
-            piece.SnapToPlaceIfPossible();
+            piece.SnapToPlaceIfPossible(pernament);
         }
     }
 
@@ -171,7 +173,7 @@ public class TetrominosBehaviour : MonoBehaviour
         switch (randomBrokeness)
         {
             case 0:
-                SnapTetrominoToPlace();
+                SnapTetrominoToPlace(false);
                 StopBlocks();
             break;
             case 1:
