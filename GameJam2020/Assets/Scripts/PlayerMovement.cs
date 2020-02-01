@@ -42,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
         var dt = Time.deltaTime;
         var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+        //var vertical = Input.GetAxis("Vertical");
+        var jump = Input.GetButtonDown("Jump");
 
         targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
 
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         //magnitude = Mathf.Clamp(velocityChange.magnitude, -MaxMoveSpeed, MaxMoveSpeed);
         //velocityChange = velocityNorm * magnitude;
         currentJumpTime += dt;
-        if (isGrounded && vertical > 0f)
+        if (isGrounded && jump)
         {
             if (currentJumpTime > jumpTimeThreshold)
             {
