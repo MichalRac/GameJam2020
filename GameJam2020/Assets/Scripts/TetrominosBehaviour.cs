@@ -5,21 +5,32 @@ using UnityEngine;
 
 public class TetrominosBehaviour : MonoBehaviour
 {
-    [SerializeField] List<TetrominosPiece> tetrominosPieces;
+    [SerializeField] List<TetrominosPiece> tetrominosPieces = new List<TetrominosPiece>();
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
     public float Distance = 8f;
     private float currentTime;
-    private float pieceHalfHeight;
+    private float pieceHeight;
+    private Rigidbody2D myRigidbody;
 
     public void Start()
     {
-        pieceHalfHeight = tetrominosPieces.FirstOrDefault().GetComponent<BoxCollider2D>().size.y / 2;
-        for (int i = 0; i < tetrominosPieces.Count; i++)
+        myRigidbody = GetComponent<Rigidbody2D>();
+        myRigidbody.gravityScale = 0f;//turn off gravity for now
+        tetrominosPieces.Clear();
+        tetrominosPiecesGos.Clear();
+
+        for (int i = 0; i < transform.childCount; i++)
         {
-            tetrominosPiecesGos.Add(tetrominosPieces[i].gameObject);
+            var child = transform.GetChild(i);
+            if (child.gameObject.activeSelf)
+            {
+                tetrominosPiecesGos.Add(child.gameObject);
+                tetrominosPieces.Add(child.GetComponent<TetrominosPiece>());
+            }
         }
-        //tetrominosPiecesGos = tetrominosPieces.Select(p => p.gameObject).ToList();
+        pieceHeight = tetrominosPieces.FirstOrDefault().GetComponent<BoxCollider2D>().size.y;
+
     }
 
     public void Update()
@@ -30,9 +41,13 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void UpdateTetrominos()
     {
-        if(!CheckCanMoveToNextPosition())
+        if (!CheckCanMoveToNextPosition())
+        {
+
+            myRigidbody.gravityScale = 1f;
             return;
-        
+        }
+
         currentTime += Time.deltaTime;
         if (currentTime > UpdateTimeInterval)
         {
@@ -54,13 +69,20 @@ public class TetrominosBehaviour : MonoBehaviour
         for (int i = 0; i < tetrominosPieces.Count; i++)
         {
             var pos = tetrominosPieces[i].transform.position;
-            pos.y -= pieceHalfHeight;
+            if(transform.eulerAngles.z.Equals(270))
+                pos.y -= pieceHeight;
+            else if (transform.eulerAngles.z.Equals(180))
+                pos.y -= pieceHeight;
             Physics2D.Raycast(pos, Vector2.down, filter, results, rayDist);
+
             Debug.DrawLine(pos, pos + Vector3.down * rayDist, Color.green);
+
             if (results.Count > 0 && IsThisOneOfOurPieces(results[0].transform.gameObject))
                 continue;
-            
-            canMoveNow =  CheckResults(results) || canMoveNow;
+
+            canMoveNow = CheckResults(results);
+            if (!canMoveNow)
+                return false;
         }
 
         return canMoveNow;
@@ -81,6 +103,8 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private bool IsThisOneOfOurPieces(GameObject go)
     {
+        if (go == gameObject)
+            return true;
         for (int i = 0; i < tetrominosPiecesGos.Count; i++)
         {
             if (go == tetrominosPiecesGos[i])
@@ -94,7 +118,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
-        transform.Translate(new Vector3(0,-Distance,0f));
+        transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
