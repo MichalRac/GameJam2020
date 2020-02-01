@@ -14,8 +14,11 @@ public static class GridManager
 
     public static void AddTetrominoAtPosition(Vector2Int pos, TetrominosPiece piece)
     {
-        tetromnoGrid.Add(pos, piece);
-        CheckLinesAtLine(pos.y);
+        if (!tetromnoGrid.ContainsKey(pos))
+        {
+            tetromnoGrid.Add(pos, piece);
+            CheckLinesAtLine(pos.y);
+        }
     }
 
     private static void CheckLinesAtLine(int line)
