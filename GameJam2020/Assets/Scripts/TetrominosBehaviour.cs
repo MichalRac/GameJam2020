@@ -44,7 +44,7 @@ public class TetrominosBehaviour : MonoBehaviour
         if (!isBroken)
         {
             blockLifeTime += Time.deltaTime;
-            if (blockLifeTime > Random.Range(5, 10))
+            if (blockLifeTime > Random.Range(10, 20))
             {
                 blockLifeTime = 0f;
                 BrokeBlocksRandom();
