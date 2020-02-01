@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentJumpTime;
     private bool doubleJumped;
 
+    private ContactFilter2D tetrominoFilter;
 
     void Start()
     {
@@ -36,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider2D>();
         playerHalfHeight = myCollider.size.y /2f;
         playerHalfWidth = myCollider.size.x / 2f;
+
+        tetrominoFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Tetrominos"),
+            useLayerMask = true
+        };
     }
 
     void Update()
@@ -51,13 +58,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButton("Fire2"))
         {
-            var raycastHit = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, transform.position.y - 1));
-            var go = raycastHit.collider.gameObject.GetComponent<TetrominosBehaviour>();
+            var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
+            var results = new List<RaycastHit2D>();
+            Physics2D.Raycast(playerFeetPos, Vector2.down, tetrominoFilter, results, 0.5f);
 
-            if (go != null)
+            foreach(var result in results)
             {
-                go.SnapTetrominoToPlace();
+                var go = result.collider.gameObject.GetComponent<TetrominosBehaviour>();
+
+                if (go != null)
+                {
+                    go.SnapTetrominoToPlace();
+                    go.StopBlocks();
+                }
             }
+            
         }
 
 
