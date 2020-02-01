@@ -8,7 +8,7 @@ public class TetrominosBehaviour : MonoBehaviour
     [SerializeField] List<TetrominosPiece> tetrominosPieces = new List<TetrominosPiece>();
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
-    public float Distance = 8f;
+    public float Distance = 1f;
     private float currentTime;
     private float pieceHeight;
     private Rigidbody2D myRigidbody;
