@@ -42,7 +42,7 @@ public class TetrominosBehaviour : MonoBehaviour
             }
         }
         pieceHeight = tetrominosPieces.FirstOrDefault().GetComponent<BoxCollider2D>().size.y;
-        Debug.Log($"Start {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
+        //Debug.Log($"Start {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
     }
 
     public void Update()
@@ -53,7 +53,7 @@ public class TetrominosBehaviour : MonoBehaviour
             if (!CheckCanMoveToNextPosition())
             {
                 myRigidbody.gravityScale = 1f;
-                Debug.Log($"Update !CheckCanMoveToNextPosition {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
+                //Debug.Log($"Update !CheckCanMoveToNextPosition {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
                 return;
             }
 
@@ -243,7 +243,7 @@ public class TetrominosBehaviour : MonoBehaviour
     {
         isBroken = true;
         myRigidbody.gravityScale = 1f;
-        Debug.Log($"FallDownBlocks {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
+        //Debug.Log($"FallDownBlocks {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
     }
 
     public void RepairFallDownBLocks()
