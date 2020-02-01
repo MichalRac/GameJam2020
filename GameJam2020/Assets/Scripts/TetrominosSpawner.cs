@@ -6,7 +6,7 @@ public class TetrominosSpawner : MonoBehaviour
 {
     [SerializeField] private List<TetrominosBehaviour> tetrominosPrefabs;
 
-    private void Awake()
+    private void Start()
     {
         StartCoroutine("Spawn");
     }
