@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private float threshold = 0.1f;
     private float jumpTimeThreshold = 0.3f; //how often can you jump?
     private float currentJumpTime;
+    private bool doubleJumped;
+
 
     void Start()
     {
@@ -42,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
         var dt = Time.deltaTime;
         var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+        //var vertical = Input.GetAxis("Vertical");
+        var jump = Input.GetButtonDown("Jump");
 
         int directionModifier = horizontal > 0 ? 1 : -1;
 
@@ -59,33 +62,21 @@ public class PlayerMovement : MonoBehaviour
 
 
         targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
-
-        //targetVelocityY = IncrementTowards(targetVelocityY, MoveSpeed * vertical, Acceleration, dt);
-        //if (isGrounded && vertical > 0f)
-        //    targetVelocityY = JumpForce;
-        //else
-        //    targetVelocityY = myRigidbody.velocity.y;
-
-
-        //velocityChange = (targetVelocity - myRigidbody.velocity);
-        //velocityNorm = velocityChange;
-        //velocityNorm.Normalize();
-        //magnitude = Mathf.Clamp(velocityChange.magnitude, -MaxMoveSpeed, MaxMoveSpeed);
-        //velocityChange = velocityNorm * magnitude;
         currentJumpTime += dt;
-        if (isGrounded && vertical > 0f)
+        if (isGrounded && jump || !isGrounded && jump && !doubleJumped)
         {
-            if (currentJumpTime > jumpTimeThreshold)
+            //if (currentJumpTime > jumpTimeThreshold)
             {
                 currentJumpTime = 0f;
                 myRigidbody.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+
+                if(!isGrounded)
+                    doubleJumped = true;
             }
         }
 
-        //targetVelocityY = Mathf.Clamp(myRigidbody.velocity.y,-maxTargetVelocityY, maxTargetVelocityY);
         targetVelocityY = myRigidbody.velocity.y;
         targetVelocity = targetVelocityX * Vector2.right + targetVelocityY * Vector2.up;
-        //myRigidbody.AddForce(velocityChange, ForceMode2D.Force);
         myRigidbody.velocity = targetVelocity;
 
     }
@@ -107,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        var rayDist = 0.01f;
+        var rayDist = 0.05f;
         isGrounded = false;
         var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
         var playerFeetPosLeftSide = playerFeetPos - new Vector3(-playerHalfWidth, 0f, 0f);
@@ -137,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
             if (results[i].distance <= threshold)
             {
                 isGrounded = true;
+                doubleJumped = false;
                 break;
             }
         }
