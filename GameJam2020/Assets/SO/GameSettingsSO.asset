@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: GameSettingsSO
   m_EditorClassIdentifier: 
   PIECE_SIZE: 8
-  LEVEL_WIDTH: 40
+  LEVEL_WIDTH: 20
   LEVEL_HEIGHT: 24
+  TETROMINO_SPAWN_FREQUENCY: 4
