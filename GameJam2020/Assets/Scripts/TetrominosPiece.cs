@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TetrominosPiece : MonoBehaviour
 {
-    private Vector3 snappedPosition;
+    public bool isPernamentlySnapped { get; private set; }
+    private Vector2Int snappedPosition;
     private SpriteRenderer mySprite;
 
     public Vector3 GetClosestVector()
@@ -12,14 +13,19 @@ public class TetrominosPiece : MonoBehaviour
         return new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0);
     }
 
-    public void SnapToPlaceIfPossible()
+    public void SnapToPlaceIfPossible(bool pernamently)
     {
-        var closestPos = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0);
+        var closestPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
         snappedPosition = closestPos;
-        transform.position = closestPos;
+        transform.position = new Vector3(closestPos.x, closestPos.y);
+        isPernamentlySnapped = pernamently;
 
-        ChangeSpriteColor(GameSettingFetcher.instance.GetSettings.FIXED_TETROMINO_COLOR);
+        if(pernamently)
+        {
+            ChangeSpriteColor(GameSettingFetcher.instance.GetSettings.FIXED_TETROMINO_COLOR);
+            GridManager.AddTetrominoAtPosition(snappedPosition, this);
+        }
     }
 
     public void ChangeSpriteColor(Color32 colorToChange)

@@ -58,6 +58,7 @@ public class TetrominosBehaviour : MonoBehaviour
             }
 
             blockLifeTime += Time.deltaTime;
+            
             if (blockLifeTime > Random.Range(10, 20))
             {
                 
@@ -65,6 +66,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 BrokeBlocksRandom();
             }
             else
+            
                 UpdateTetrominosPositions();
         }
     }
@@ -151,20 +153,20 @@ public class TetrominosBehaviour : MonoBehaviour
 
     private void MoveTetrominos()
     {
-        SnapTetrominoToPlace();
+        SnapTetrominoToPlace(false);
         myRigidbody.velocity = Vector2.zero;
         transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
 
 
-    public void SnapTetrominoToPlace()
+    public void SnapTetrominoToPlace(bool pernament)
     {
         if (!IsRotated90Degrees())
             return;
 
         foreach (var piece in tetrominosPieces)
         {
-            piece.SnapToPlaceIfPossible();
+            piece.SnapToPlaceIfPossible(pernament);
         }
     }
 
@@ -191,7 +193,7 @@ public class TetrominosBehaviour : MonoBehaviour
             case 0:
                 if (!IsRotated90Degrees())
                     return;
-                SnapTetrominoToPlace();
+                SnapTetrominoToPlace(false);
                 StopBlocks();
             break;
             case 1:
@@ -221,7 +223,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
         }
         ChangeColorForBlocks(defaultColor);
-        SnapTetrominoToPlace();
+        SnapTetrominoToPlace(false);
     }
 
     public void StopBlocks()
