@@ -18,6 +18,8 @@ public class LevelSetupBehaviour : MonoBehaviour
 
         SetupLevel();
         CreateBorder();
+
+        GridManager.ClearOnStartUp();
     }
 
     private void SetupLevel()
