@@ -9,18 +9,20 @@ public class TetrominosBehaviour : MonoBehaviour
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
     public Color32 FrozenPieceColor = new Color32(255, 255, 255, 255);
-
+    private Color32 defaultColor;
     public float Distance = 1f;
     private float currentTime;
     private float pieceHeight;
     private Rigidbody2D myRigidbody;
-
-    private bool isBroken;
+    private SpriteRenderer myRenderer;
+    public bool isBroken;
     private float blockLifeTime;
 
 
     public void Start()
     {
+        myRenderer = GetComponentInChildren<SpriteRenderer>();
+        defaultColor = myRenderer.color;
         myRigidbody = GetComponent<Rigidbody2D>();
         myRigidbody.gravityScale = 0f;//turn off gravity for now
         tetrominosPieces.Clear();
@@ -146,10 +148,20 @@ public class TetrominosBehaviour : MonoBehaviour
     }
 
     //broken blocks features
+    private int brokenesIndex;
+
+    private void ChangeColorForBlocks(Color32 newColor)
+    {
+        for (int i = 0; i < tetrominosPieces.Count; i++)
+        {
+            tetrominosPieces[i].ChangeSpriteColor(newColor);
+        }
+    }
 
     public void BrokeBlocksRandom()
     {
         var randomBrokeness = Random.Range(0, 2);
+        brokenesIndex = randomBrokeness;
         switch (randomBrokeness)
         {
             case 0:
@@ -161,8 +173,33 @@ public class TetrominosBehaviour : MonoBehaviour
             default:
                 StopBlocks();
             break;
-                
         }
+
+        ChangeColorForBlocks(FrozenPieceColor);
+    }
+
+    public void RepairBlocks()
+    {
+        var isRepairBtnDown = Input.GetButtonDown("Repair");
+        //Debug.Log($"Repair isRepairBtnDown {isRepairBtnDown}");
+        if (!isRepairBtnDown)
+            return;
+
+        switch (brokenesIndex)
+        {
+            case 0:
+                RepairStopBlocks();
+                break;
+            case 1:
+                RepairFallDownBLocks();
+                break;
+            default:
+                StopBlocks();
+                break;
+
+        }
+        ChangeColorForBlocks(defaultColor);
+
     }
 
     public void StopBlocks()
