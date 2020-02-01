@@ -15,6 +15,10 @@ public class TetrominosBehaviour : MonoBehaviour
     private float pieceHeight;
     private Rigidbody2D myRigidbody;
 
+    private bool isBroken;
+    private float blockLifeTime;
+
+
     public void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -37,15 +41,24 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void Update()
     {
-        UpdateTetrominos();
+        if (!isBroken)
+        {
+            blockLifeTime += Time.deltaTime;
+            if (blockLifeTime > Random.Range(10, 20))
+            {
+                blockLifeTime = 0f;
+                BrokeBlocksRandom();
+            }
+            else
+                UpdateTetrominosPositions();
+        }
     }
 
 
-    private void UpdateTetrominos()
+    private void UpdateTetrominosPositions()
     {
         if (!CheckCanMoveToNextPosition())
         {
-
             myRigidbody.gravityScale = 1f;
             return;
         }
@@ -123,15 +136,6 @@ public class TetrominosBehaviour : MonoBehaviour
         transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        //Debug.Log($"OnCollisionEnter2D with {other.transform.name} ");
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        //Debug.Log($"OnTriggerEnter2D with {other.transform.name} ");
-    }
 
     public void SnapTetrominoToPlace()
     {
@@ -141,4 +145,48 @@ public class TetrominosBehaviour : MonoBehaviour
         }
     }
 
+    //broken blocks features
+
+    public void BrokeBlocksRandom()
+    {
+        var randomBrokeness = Random.Range(0, 2);
+        switch (randomBrokeness)
+        {
+            case 0:
+                StopBlocks();
+            break;
+            case 1:
+                FallDownBlocks();
+                break;
+            default:
+                StopBlocks();
+            break;
+                
+        }
+    }
+
+    public void StopBlocks()
+    {
+        isBroken = true;
+        //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void RepairStopBlocks()
+    {
+        isBroken = false;
+        //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void FallDownBlocks()
+    {
+        isBroken = true;
+        myRigidbody.gravityScale = 1f;
+    }
+
+    private void RepairFallDownBLocks()
+    {
+        isBroken = false;
+    }
 }

@@ -47,6 +47,20 @@ public class PlayerMovement : MonoBehaviour
         //var vertical = Input.GetAxis("Vertical");
         var jump = Input.GetButtonDown("Jump");
 
+        int directionModifier = horizontal > 0 ? 1 : -1;
+
+        if (Input.GetButton("Fire2"))
+        {
+            var raycastHit = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, transform.position.y - 1));
+            var go = raycastHit.collider.gameObject.GetComponent<TetrominosBehaviour>();
+
+            if (go != null)
+            {
+                go.SnapTetrominoToPlace();
+            }
+        }
+
+
         targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
         currentJumpTime += dt;
         if (isGrounded && jump || !isGrounded && jump && !doubleJumped)
