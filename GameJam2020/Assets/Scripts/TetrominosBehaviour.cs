@@ -25,6 +25,7 @@ public class TetrominosBehaviour : MonoBehaviour
         myRenderer = GetComponentInChildren<SpriteRenderer>();
         defaultColor = myRenderer.color;
         myRigidbody = GetComponent<Rigidbody2D>();
+        myRigidbody.velocity = Vector2.zero;
         myRigidbody.gravityScale = 0f;//turn off gravity for now
         tetrominosPieces.Clear();
         tetrominosPiecesGos.Clear();
