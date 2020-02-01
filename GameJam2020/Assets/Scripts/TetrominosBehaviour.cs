@@ -16,9 +16,11 @@ public class TetrominosBehaviour : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private SpriteRenderer myRenderer;
     public bool isBroken;
+    public bool IsSnappedPermanently;
     private float blockLifeTime;
     private bool wasBrokenThisGame;
-
+    private bool canMoveNow;
+    public bool isSnappedBlockBelowUs;
 
 
     public void Start()
@@ -89,7 +91,7 @@ public class TetrominosBehaviour : MonoBehaviour
         }
     }
 
-    private bool canMoveNow;
+
 
     private bool CheckCanMoveToNextPosition()
     {
@@ -101,6 +103,7 @@ public class TetrominosBehaviour : MonoBehaviour
         var results = new List<RaycastHit2D>();
         var rayDist = 0.5f;
         canMoveNow = false;
+        isSnappedBlockBelowUs = false;
         for (int i = 0; i < tetrominosPieces.Count; i++)
         {
             var pos = tetrominosPieces[i].transform.position;
@@ -129,6 +132,10 @@ public class TetrominosBehaviour : MonoBehaviour
         {
             if (results[i].distance <= 1f)
             {
+                var tetrominosScript = results[i].collider.transform.GetComponent<TetrominosBehaviour>();
+                if (tetrominosScript != null && tetrominosScript.IsSnappedPermanently || 
+                    results[i].collider.CompareTag("BlockBorder"))
+                    isSnappedBlockBelowUs = true;
                 return false;
             }
         }
@@ -158,12 +165,14 @@ public class TetrominosBehaviour : MonoBehaviour
         transform.Translate(new Vector3(0,-Distance,0f),Space.World);
     }
 
+    
 
     public void SnapTetrominoToPlace(bool pernament)
     {
-        if (!IsRotated90Degrees())
+        if (!IsRotated90Degrees() || !isSnappedBlockBelowUs)
             return;
-
+        if (pernament)
+            IsSnappedPermanently = true;
         foreach (var piece in tetrominosPieces)
         {
             piece.SnapToPlaceIfPossible(pernament);
