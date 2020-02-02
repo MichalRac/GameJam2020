@@ -124,12 +124,11 @@ public class PlayerMovement : MonoBehaviour
 
             foreach (var result in results)
             {
-                var go = result.collider.gameObject.GetComponent<TetrominosBehaviour>();
+                var go = result.collider.gameObject.GetComponent<TetrominoRoot>();
 
                 if (go != null)
                 {
-                    go.SnapTetrominoToPlace(true);
-                    go.StopBlocks(false);
+                    go.SetTetrominoState(TetrominoState.PernamentlySnapped);
                     doubleJumped = false;
                 }
             }

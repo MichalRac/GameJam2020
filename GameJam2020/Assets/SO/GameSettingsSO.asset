@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0848a12c112525f4a8f20f4ee6e54a95, type: 3}
   m_Name: GameSettingsSO
   m_EditorClassIdentifier: 
-  PIECE_SIZE: 8
-  LEVEL_WIDTH: 20
+  PIECE_SIZE: 1
+  LEVEL_WIDTH: 10
   LEVEL_HEIGHT: 24
-  TETROMINO_SPAWN_FREQUENCY: 8
+  TETROMINO_SPAWN_FREQUENCY: 6
+  TETROMINO_FALL_FREQUENCY: 1
   FIXED_TETROMINO_COLOR:
     serializedVersion: 2
     rgba: 4288782753
   TETROMINOS_LAYER_NAME: Tetrominos
   DEFAULT_LAYER_NAME: Default
+  PLAYER_LAYER_NAME: Player

@@ -109,7 +109,7 @@ public class TetrominosBehaviour : MonoBehaviour
             layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
             useLayerMask = true
         };
-        var results = new List<RaycastHit2D>();
+            var results = new List<RaycastHit2D>();
         var results2 = new List<RaycastHit2D>();
         var results3 = new List<RaycastHit2D>();
 
@@ -152,7 +152,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 pos2.x += pieceHeight / 2;
                 pos3.x += pieceHeight - bufferForRaysOrigins;
             }
-
+            
             Physics2D.Raycast(pos, Vector2.down, filter, results, rayDist);
             Debug.DrawLine(pos, pos + Vector3.down * rayDist, Color.green);
 

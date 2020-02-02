@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,11 +9,16 @@ public class TetrominosPiece : MonoBehaviour
     private Vector2Int snappedPosition;
     private SpriteRenderer mySprite;
 
-    public Vector3 GetClosestVector()
+    private void Awake()
     {
-        return new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0);
+        mySprite = GetComponentInChildren<SpriteRenderer>();
     }
 
+    public Vector3 GetCenterOfSprite()
+    {
+        return mySprite.bounds.center;
+    }
+    
     public void SnapToPlaceIfPossible(bool pernamently)
     {
         var closestPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
@@ -30,7 +36,6 @@ public class TetrominosPiece : MonoBehaviour
 
     public void ChangeSpriteColor(Color32 colorToChange)
     {
-        mySprite = transform.GetComponentInChildren<SpriteRenderer>();
         mySprite.color = colorToChange;
     }
 }
