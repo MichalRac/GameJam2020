@@ -29,7 +29,7 @@ public class TetrominosBehaviour : MonoBehaviour
     private List<GameObject> TetrominoFX = new List<GameObject>();
     private float explodeDelay = 3f;//in seconds
     private float explosionForceStrength = 50f;
-    private float explosionRadius = 1.5f;
+    private float explosionRadius = 2f;
 
     public void Start()
     {
