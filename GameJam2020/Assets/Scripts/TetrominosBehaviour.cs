@@ -205,16 +205,19 @@ public class TetrominosBehaviour : MonoBehaviour
                     return;
                 SnapTetrominoToPlace(false);
                 StopBlocks();
-            break;
+                ChangeColorForBlocks(FrozenPieceColor);
+                break;
             case 1:
                 FallDownBlocks();
                 break;
             default:
                 StopBlocks();
-            break;
+                ChangeColorForBlocks(FrozenPieceColor);
+                break;
         }
+
         wasBrokenThisGame = true;
-        ChangeColorForBlocks(FrozenPieceColor);
+
     }
 
     public void RepairBlocks()
@@ -252,7 +255,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void FallDownBlocks()
     {
-        isBroken = true;
+        isBroken = false;
         myRigidbody.gravityScale = 1f;
         //Debug.Log($"FallDownBlocks {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
     }
