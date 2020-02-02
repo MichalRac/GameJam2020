@@ -67,7 +67,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 //Debug.Log($"Update !CheckCanMoveToNextPosition {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
                 return;
             }
-
+            myRigidbody.gravityScale = 0f;
             blockLifeTime += Time.deltaTime;
             
             if (blockLifeTime > Random.Range(10, 20))
@@ -165,7 +165,7 @@ public class TetrominosBehaviour : MonoBehaviour
             results.AddRange(results2);
             results.AddRange(results3);
 
-            if (results.Count > 0 && IsThisOneOfOurPieces(results[0].transform.gameObject))
+            if (results.Count > 0 && AreAllHitsOurOwnPieces(results))
                 continue;
 
             canMoveNow = CheckResults(results);
@@ -194,19 +194,17 @@ public class TetrominosBehaviour : MonoBehaviour
         return true;
     }
 
-    private bool IsThisOneOfOurPieces(GameObject go)
+    private bool AreAllHitsOurOwnPieces(List<RaycastHit2D> results)
     {
-        if (go == gameObject)
-            return true;
-        for (int i = 0; i < tetrominosPiecesGos.Count; i++)
+
+        for (int z = 0; z < results.Count; z++)
         {
-            if (go == tetrominosPiecesGos[i])
-            {
-                return true;
-            }
+            if (!tetrominosPiecesGos.Contains(results[z].collider.gameObject) &&
+                results[z].collider.gameObject != gameObject)
+                return false;
         }
-        
-        return false;
+
+        return true;
     }
 
     private void MoveTetrominos()
