@@ -101,19 +101,60 @@ public class TetrominosBehaviour : MonoBehaviour
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();
+        var results2 = new List<RaycastHit2D>();
+        var results3 = new List<RaycastHit2D>();
+
         var rayDist = 0.5f;
-        canMoveNow = false;
+        var bufferForRaysOrigins = 0.1f;
+        canMoveNow = true;
         isSnappedBlockBelowUs = false;
         for (int i = 0; i < tetrominosPieces.Count; i++)
         {
             var pos = tetrominosPieces[i].transform.position;
-            if(transform.eulerAngles.z.Equals(270))
-                pos.y -= pieceHeight;
+            //pos.y += bufferForRaysOrigins;
+            var pivotAtRightSide = false;
+            if (transform.eulerAngles.z.Equals(90))
+            {
+                pivotAtRightSide = true;
+            }
             else if (transform.eulerAngles.z.Equals(180))
+            {
                 pos.y -= pieceHeight;
-            Physics2D.Raycast(pos, Vector2.down, filter, results, rayDist);
+                pivotAtRightSide = true;
+            }
+            else if (transform.eulerAngles.z.Equals(270))
+            {
+                pos.y -= pieceHeight;
+                pivotAtRightSide = false;
+            }
 
+            var pos2 = pos;
+            var pos3 = pos;
+
+            if (pivotAtRightSide)
+            {
+                pos.x -= bufferForRaysOrigins;
+                pos2.x -= pieceHeight / 2;
+                pos3.x -= pieceHeight - bufferForRaysOrigins;
+            }
+            else
+            {
+                pos.x += bufferForRaysOrigins;
+                pos2.x += pieceHeight / 2;
+                pos3.x += pieceHeight - bufferForRaysOrigins;
+            }
+
+            Physics2D.Raycast(pos, Vector2.down, filter, results, rayDist);
             Debug.DrawLine(pos, pos + Vector3.down * rayDist, Color.green);
+
+            Physics2D.Raycast(pos2, Vector2.down, filter, results2, rayDist);
+            Debug.DrawLine(pos2, pos2 + Vector3.down * rayDist, Color.green);
+
+            Physics2D.Raycast(pos3, Vector2.down, filter, results3, rayDist);
+            Debug.DrawLine(pos3, pos3 + Vector3.down * rayDist, Color.green);
+
+            results.AddRange(results2);
+            results.AddRange(results3);
 
             if (results.Count > 0 && IsThisOneOfOurPieces(results[0].transform.gameObject))
                 continue;
@@ -136,6 +177,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 if (tetrominosScript != null && tetrominosScript.IsSnappedPermanently || 
                     results[i].collider.CompareTag("BlockBorder"))
                     isSnappedBlockBelowUs = true;
+
                 return false;
             }
         }
@@ -193,7 +235,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void BrokeBlocksRandom()
     {
-        if(wasBrokenThisGame)
+        if(wasBrokenThisGame || IsSnappedPermanently)
             return;
 
         var randomBrokeness = Random.Range(0, 2);
@@ -204,16 +246,19 @@ public class TetrominosBehaviour : MonoBehaviour
                 if (!IsRotated90Degrees())
                     return;
                 SnapTetrominoToPlace(false);
-                StopBlocks();
                 ChangeColorForBlocks(FrozenPieceColor);
-                break;
+  
+                StopBlocks(true);
+            break;
             case 1:
                 FallDownBlocks();
                 break;
             default:
-                StopBlocks();
+  
                 ChangeColorForBlocks(FrozenPieceColor);
-                break;
+             
+                StopBlocks(true);
+            break;
         }
 
         wasBrokenThisGame = true;
@@ -231,7 +276,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 RepairFallDownBLocks();
                 break;
             default:
-                StopBlocks();
+                StopBlocks(false);
                 break;
 
         }
@@ -239,9 +284,9 @@ public class TetrominosBehaviour : MonoBehaviour
         SnapTetrominoToPlace(false);
     }
 
-    public void StopBlocks()
+    public void StopBlocks(bool broken)
     {
-        isBroken = true;
+        isBroken = broken;
         //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
@@ -262,7 +307,6 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void RepairFallDownBLocks()
     {
-        
         isBroken = false;
     }
 }

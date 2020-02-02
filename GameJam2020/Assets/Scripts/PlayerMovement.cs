@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
                 if (go != null)
                 {
                     go.SnapTetrominoToPlace(true);
-                    go.StopBlocks();
+                    go.StopBlocks(false);
                     doubleJumped = false;
                 }
             }
