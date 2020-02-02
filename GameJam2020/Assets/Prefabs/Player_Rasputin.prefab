@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 8345579716165937227}
   m_Layer: 8
   m_Name: Player_Rasputin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   isGrounded: 0
+  mySprite: {fileID: 0}
 --- !u!114 &635238222490762327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea58f136976ffdf4b925f92c3bd57635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RepairRange: 5
 --- !u!50 &8663859979193116556
 Rigidbody2D:
   serializedVersion: 4
@@ -203,6 +205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484543395472726859, guid: 412bc6f61b90bac4ebf88016c61929b9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7484543395472726860, guid: 412bc6f61b90bac4ebf88016c61929b9,
         type: 3}

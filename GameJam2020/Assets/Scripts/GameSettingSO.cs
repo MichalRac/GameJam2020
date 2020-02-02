@@ -12,4 +12,5 @@ public class GameSettingSO : ScriptableObject
     public Color32 FIXED_TETROMINO_COLOR;
     public string TETROMINOS_LAYER_NAME = "Tetrominos";
     public string DEFAULT_LAYER_NAME = "Default";
+    public string PLAYER_LAYER_NAME = "Player";
 }
