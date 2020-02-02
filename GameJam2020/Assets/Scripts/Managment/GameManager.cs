@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState CurrentGameState = GameState.Lobby;
-
+    public GameObject endGameScreen;
 
     public enum GameState
     {
@@ -42,10 +42,12 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         CurrentGameState = GameState.Started;
+        endGameScreen.SetActive(false);
     }
 
     public void EndGame()
     {
+        endGameScreen.SetActive(true);
         CurrentGameState = GameState.Finnished;
         Debug.Log("End Game");
     }
