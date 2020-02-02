@@ -272,6 +272,7 @@ public class TetrominoRoot : MonoBehaviour
                     ChangeColorForBlocks(gameSettingSO.BOMB_TETROMINO_COLOR);
                     SetExplodeState();
                     onObstacleActivate = null;
+                    RunTetrominoFX(1, true);
                 };
                 break;
             case TetrominoObstacleType.None:
