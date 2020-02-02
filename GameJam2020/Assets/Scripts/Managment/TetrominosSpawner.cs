@@ -17,7 +17,7 @@ public class TetrominosSpawner : MonoBehaviour
         var settings = GameSettingFetcher.instance.GetSettings;
         while(GameManager.Instance.CurrentGameState == GameManager.GameState.Started)
         {
-            var spawnPoint = new Vector3(Random.Range(2, settings.LEVEL_WIDTH - 3), settings.LEVEL_HEIGHT, 0);
+            var spawnPoint = new Vector3(Random.Range(3, settings.LEVEL_WIDTH - 4), settings.LEVEL_HEIGHT, 0);
             var newObject = GetRandomTetromino();
 
             if (IsThereBlockAlready(spawnPoint))

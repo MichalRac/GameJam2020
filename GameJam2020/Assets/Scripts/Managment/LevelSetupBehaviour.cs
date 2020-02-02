@@ -44,7 +44,7 @@ public class LevelSetupBehaviour : MonoBehaviour
             borderPiece.GetComponent<TetrominosPiece>().ChangeSpriteColor(borderColor);
         }
 
-        for(int i = 0; i < gameSettingSO.LEVEL_HEIGHT; i++)
+        for(int i = 0; i < gameSettingSO.LEVEL_HEIGHT * 2; i++)
         {
             var borderPiece = Instantiate(borderBlockPrefab, new Vector3(-1, i, 0), Quaternion.identity, bgHolder.transform);
             borderPiece.GetComponent<TetrominosPiece>().ChangeSpriteColor(borderColor);
