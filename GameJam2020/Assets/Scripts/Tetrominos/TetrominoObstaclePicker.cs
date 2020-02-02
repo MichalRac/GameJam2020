@@ -16,20 +16,24 @@ namespace Tetrominos
     {
         private static float[] chances = new[]
         {
-            GameSettingFetcher.instance.GetSettings.TETROMINO_FALL_WEIGHT_CHANCE,
             GameSettingFetcher.instance.GetSettings.TETROMINO_FREEZE_WEIGHT_CHANCE,
+            GameSettingFetcher.instance.GetSettings.TETROMINO_FALL_WEIGHT_CHANCE,
             GameSettingFetcher.instance.GetSettings.TETROMINO_REGULAR_WEIGHT_CHANCE,
         };
 
         public static TetrominoObstacleType PickObstacleType()
         {
             float draw = Random.Range(0, chances.Sum());
+
+            if (draw == chances.Sum())
+                return TetrominoObstacleType.None;
+            
             float x = 0;
             
             for (int i = 0; i < chances.Length; i++)
             {
                 x += chances[i];
-                if (x < draw)
+                if (draw < x)
                 {
                     return (TetrominoObstacleType) i;
                 }
