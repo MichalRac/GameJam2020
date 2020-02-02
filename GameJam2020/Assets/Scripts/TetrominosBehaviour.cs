@@ -22,6 +22,8 @@ public class TetrominosBehaviour : MonoBehaviour
     private bool canMoveNow;
     public bool isSnappedBlockBelowUs;
 
+    [SerializeField]
+    private List<GameObject> TetrominoFX = new List<GameObject>();
 
     public void Start()
     {
@@ -37,10 +39,10 @@ public class TetrominosBehaviour : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             var child = transform.GetChild(i);
-            if (child.gameObject.activeSelf)
+            if (child.gameObject.activeSelf && child.GetComponent<TetrominosPiece>()!=null)
             {
-                tetrominosPiecesGos.Add(child.gameObject);
                 tetrominosPieces.Add(child.GetComponent<TetrominosPiece>());
+                tetrominosPiecesGos.Add(child.gameObject);
             }
         }
         pieceHeight = tetrominosPieces.FirstOrDefault().GetComponent<BoxCollider2D>().size.y;
@@ -247,7 +249,9 @@ public class TetrominosBehaviour : MonoBehaviour
                     return;
                 SnapTetrominoToPlace(false);
                 ChangeColorForBlocks(FrozenPieceColor);
-  
+                RunTetrominoFX(0, true);
+
+
                 StopBlocks(true);
             break;
             case 1:
@@ -296,6 +300,7 @@ public class TetrominosBehaviour : MonoBehaviour
         isBroken = false;
         //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        RunTetrominoFX(0, false);
     }
 
     public void FallDownBlocks()
@@ -308,5 +313,11 @@ public class TetrominosBehaviour : MonoBehaviour
     public void RepairFallDownBLocks()
     {
         isBroken = false;
+    }
+
+    private void RunTetrominoFX(int _index, bool _activation)
+    {
+        TetrominoFX[_index].SetActive(_activation);
+        TetrominoFX[_index].transform.rotation = Quaternion.identity;
     }
 }
