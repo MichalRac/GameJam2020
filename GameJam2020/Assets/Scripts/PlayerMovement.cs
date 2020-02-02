@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimeThreshold = 0.3f; //how often can you jump?
     private float currentJumpTime;
     private bool doubleJumped;
-
     private Animator myAnimator;
 
    [SerializeField]
@@ -48,6 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Started)
+            return;
+
         CheckGrounded();
 
         var dt = Time.deltaTime;

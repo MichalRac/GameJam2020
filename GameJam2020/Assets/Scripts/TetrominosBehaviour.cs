@@ -49,7 +49,8 @@ public class TetrominosBehaviour : MonoBehaviour
 
     public void Update()
     {
-
+        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Started)
+            return;
         if (!isBroken)
         {
             if (!CheckCanMoveToNextPosition())
