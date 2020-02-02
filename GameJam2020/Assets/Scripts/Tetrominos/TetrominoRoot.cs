@@ -50,7 +50,7 @@ public class TetrominoRoot : MonoBehaviour
     {
         currentTime = 0f;
         SetTetrominoState(TetrominoState.FallingClassic);
-        layerMask = LayerMask.GetMask("Tetrominos", "Default");
+        layerMask = LayerMask.GetMask("Tetrominos", "Default", "Player");
         obstacleType = TetrominoObstaclePicker.PickObstacleType();
 
         if (obstacleType != TetrominoObstacleType.None)
