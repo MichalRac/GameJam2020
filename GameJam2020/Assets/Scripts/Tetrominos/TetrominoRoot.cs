@@ -190,7 +190,6 @@ public class TetrominoRoot : MonoBehaviour
         _tetrominoState = TetrominoState.FallingPhysics;
         rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb2D.gravityScale = 1f;
-
     }
 
     private void  SetPernamentlySnappedState()
@@ -217,6 +216,8 @@ public class TetrominoRoot : MonoBehaviour
                 onObstacleActivate += () =>
                 {
                     SetFrozenState();
+                    ChangeColorForBlocks(gameSettingSO.FROZEN_TETROMINO_COLOR);
+                    RunTetrominoFX(0, true);
                     onObstacleActivate = null;
                 };
                 break;
@@ -239,4 +240,13 @@ public class TetrominoRoot : MonoBehaviour
         TetrominoFX[_index].SetActive(_activation);
         TetrominoFX[_index].transform.rotation = Quaternion.identity;
     }
+
+    private void ChangeColorForBlocks(Color32 newColor)
+    {
+        for (int i = 0; i < tetrominoPieces.Count; i++)
+        {
+            tetrominoPieces[i].ChangeSpriteColor(newColor);
+        }
+    }
 }
+

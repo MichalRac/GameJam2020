@@ -12,9 +12,11 @@ public class GameSettingSO : ScriptableObject
     public float TETROMINO_FALL_FREQUENCY = 4f;
     
     [Space(15)]
-    
+    public Color32 BOMB_TETROMINO_COLOR;
     public Color32 FIXED_TETROMINO_COLOR;
-    
+    public Color32 FROZEN_TETROMINO_COLOR;
+    public Color32 DEFAULT_TETROMINO_COLOR;
+
     [Space(15)]
     
     public string TETROMINOS_LAYER_NAME = "Tetrominos";
