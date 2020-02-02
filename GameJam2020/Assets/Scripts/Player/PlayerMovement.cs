@@ -128,6 +128,8 @@ public class PlayerMovement : MonoBehaviour
 
                 if (go != null)
                 {
+                    if(go._tetrominoState != TetrominoState.FallingPhysics) continue;
+                    
                     go.SetTetrominoState(TetrominoState.PernamentlySnapped);
                     doubleJumped = false;
                 }
