@@ -300,7 +300,7 @@ MonoBehaviour:
   UpdateTimeInterval: 1
   FrozenPieceColor:
     serializedVersion: 2
-    rgba: 4294928384
+    rgba: 4278242559
   Distance: 1
   isBroken: 0
   IsSnappedPermanently: 0
