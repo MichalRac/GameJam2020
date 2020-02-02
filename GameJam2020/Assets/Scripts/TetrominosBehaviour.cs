@@ -9,12 +9,15 @@ public class TetrominosBehaviour : MonoBehaviour
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
     public Color32 FrozenPieceColor = new Color32(255, 255, 255, 255);
+    public Color32 ExplodePieceColor = new Color32(255, 100, 0, 255);
     private Color32 defaultColor;
     public float Distance = 1f;
     private float currentTime;
     private float pieceHeight;
     private Rigidbody2D myRigidbody;
     private SpriteRenderer myRenderer;
+    public GameObject explodeFx;
+
     public bool isBroken;
     public bool IsSnappedPermanently;
     private float blockLifeTime;
@@ -24,6 +27,9 @@ public class TetrominosBehaviour : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> TetrominoFX = new List<GameObject>();
+    private float explodeDelay = 3f;//in seconds
+    private float explosionForceStrength = 50f;
+    private float explosionRadius = 1.5f;
 
     public void Start()
     {
@@ -241,31 +247,33 @@ public class TetrominosBehaviour : MonoBehaviour
         if(wasBrokenThisGame || IsSnappedPermanently)
             return;
 
-        var randomBrokeness = Random.Range(0, 2);
+        var randomBrokeness = Random.Range(0, 3);
         brokenesIndex = randomBrokeness;
-        switch (randomBrokeness)
-        {
-            case 0:
-                if (!IsRotated90Degrees())
-                    return;
-                SnapTetrominoToPlace(false);
-                ChangeColorForBlocks(FrozenPieceColor);
-                RunTetrominoFX(0, true);
 
-
+       switch (randomBrokeness)
+         {
+             case 0:
+                 if (!IsRotated90Degrees())
+                     return;
+                 SnapTetrominoToPlace(false);
+                 ChangeColorForBlocks(FrozenPieceColor);
+                 RunTetrominoFX(0, true);
                 StopBlocks(true);
-            break;
-            case 1:
-                FallDownBlocks();
-                break;
-            default:
-  
-                ChangeColorForBlocks(FrozenPieceColor);
-             
-                StopBlocks(true);
-            break;
-        }
+             break;
+             case 1:
+                 FallDownBlocks();
+                 break;
+             case 2:
+                 Explode();
+                 ChangeColorForBlocks(ExplodePieceColor);
+                 break;
 
+             default:
+                 ChangeColorForBlocks(FrozenPieceColor);
+                 StopBlocks(true);
+             break;
+         }
+       
         wasBrokenThisGame = true;
 
     }
@@ -279,6 +287,9 @@ public class TetrominosBehaviour : MonoBehaviour
                 break;
             case 1:
                 RepairFallDownBLocks();
+                break;
+            case 2:
+                RepairExplode();
                 break;
             default:
                 StopBlocks(false);
@@ -314,6 +325,65 @@ public class TetrominosBehaviour : MonoBehaviour
     public void RepairFallDownBLocks()
     {
         isBroken = false;
+    }
+
+    public void Explode()
+    {
+        isBroken = true;
+        myRigidbody.gravityScale = 1f;
+        StartCoroutine(ExplodeDelayed(explodeDelay));
+        //Debug.Log($"FallDownBlocks {gameObject.name} myRigidbody.gravityScale {myRigidbody.gravityScale}");
+    }
+
+    private IEnumerator ExplodeDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        var pos = transform.position;
+        pos.z += 2f;
+        Instantiate(explodeFx,pos , Quaternion.identity);
+        AddExplosionForce(pos);
+        Destroy(gameObject);
+        
+
+    }
+
+    private void AddExplosionForce(Vector3 pos)
+    {
+        var filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.PLAYER_LAYER_NAME),
+            useLayerMask = true
+        };
+
+        var results = new List<RaycastHit2D>();
+        Physics2D.CircleCast(pos, explosionRadius, Vector2.down, filter, results, explosionRadius);
+        Debug.DrawLine(pos, pos + Vector3.down * explosionRadius, Color.red, 1f);
+
+        foreach (var result in results)
+        {
+            var dir3 = (result.transform.position - pos).normalized;
+            var dir2 = new Vector2(dir3.x,dir3.y);
+
+            if (result.collider.CompareTag(GameSettingFetcher.instance.GetSettings.PLAYER_LAYER_NAME))
+            {
+                GameManager.Instance.EndGame();
+                return;
+            }
+
+            var go = result.collider.gameObject.GetComponent<TetrominosBehaviour>();
+
+            if (go != null)
+            {
+                //Debug.Log($"AddExplosionForce Hit, {go.name}");
+                if(!go.IsSnappedPermanently)
+                    go.myRigidbody.AddForce(dir2 * explosionForceStrength, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    public void RepairExplode()
+    {
+        StopAllCoroutines();
     }
 
     private void RunTetrominoFX(int _index, bool _activation)
