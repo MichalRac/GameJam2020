@@ -175,6 +175,7 @@ public class TetrominosBehaviour : MonoBehaviour
             IsSnappedPermanently = true;
         foreach (var piece in tetrominosPieces)
         {
+            if (piece == null) continue;
             piece.SnapToPlaceIfPossible(pernament);
         }
     }
@@ -247,6 +248,7 @@ public class TetrominosBehaviour : MonoBehaviour
         isBroken = false;
         //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        myRigidbody.gravityScale = 0f;
     }
 
     public void FallDownBlocks()
