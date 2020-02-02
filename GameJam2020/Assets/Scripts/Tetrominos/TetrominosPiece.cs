@@ -9,6 +9,7 @@ public class TetrominosPiece : MonoBehaviour
     private Vector2Int snappedPosition;
     private SpriteRenderer mySprite;
 
+
     private void Awake()
     {
         mySprite = GetComponentInChildren<SpriteRenderer>();

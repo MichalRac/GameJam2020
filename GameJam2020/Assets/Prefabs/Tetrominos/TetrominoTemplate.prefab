@@ -710,6 +710,9 @@ MonoBehaviour:
   - {fileID: 4476613550873119700}
   - {fileID: 7957904896468304058}
   - {fileID: 8023778681135259313}
+  TetrominoFX:
+  - {fileID: 5793640635876066397}
+  - {fileID: 4586267779071101205}
 --- !u!1001 &1013149441630015433
 PrefabInstance:
   m_ObjectHideFlags: 0

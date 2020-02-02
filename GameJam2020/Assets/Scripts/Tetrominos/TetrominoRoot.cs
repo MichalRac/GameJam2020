@@ -248,5 +248,15 @@ public class TetrominoRoot : MonoBehaviour
             tetrominoPieces[i].ChangeSpriteColor(newColor);
         }
     }
+
+    public void SetDefaultVisuals()
+    {
+        ChangeColorForBlocks(gameSettingSO.DEFAULT_TETROMINO_COLOR);
+        for (int i = 0; i < TetrominoFX.Count; i++)
+        {
+            TetrominoFX[i].SetActive(false);
+        }
+       
+    }
 }
 

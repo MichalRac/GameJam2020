@@ -54,7 +54,12 @@ public class PlayerRepairs : MonoBehaviour
 
         foreach (var frozenTetromino in brokenTetrominosInRange)
         {
-            frozenTetromino.SetTetrominoState(TetrominoState.FallingPhysics);
+            if (frozenTetromino._tetrominoState == TetrominoState.Frozen)
+            {
+                frozenTetromino.SetTetrominoState(TetrominoState.FallingPhysics);
+                frozenTetromino.SetDefaultVisuals();
+            }
+            
         }
     }
 }
