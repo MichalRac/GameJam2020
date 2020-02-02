@@ -304,7 +304,7 @@ MonoBehaviour:
     rgba: 4278242559
   ExplodePieceColor:
     serializedVersion: 2
-    rgba: 4278215935
+    rgba: 4294902015
   Distance: 1
   explodeFx: {fileID: 8206388397496334993, guid: a07678898bb9a9c4bb7e266bb690bbd1,
     type: 3}
