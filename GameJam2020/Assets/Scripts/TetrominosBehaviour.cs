@@ -175,6 +175,7 @@ public class TetrominosBehaviour : MonoBehaviour
             IsSnappedPermanently = true;
         foreach (var piece in tetrominosPieces)
         {
+            if (piece == null) continue;
             piece.SnapToPlaceIfPossible(pernament);
         }
     }
