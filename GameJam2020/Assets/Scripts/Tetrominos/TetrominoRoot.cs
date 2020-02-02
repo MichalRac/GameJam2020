@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Tetrominos;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Random = UnityEngine.Random;
 
 public  enum TetrominoState
 {
@@ -17,9 +19,17 @@ public class TetrominoRoot : MonoBehaviour
 {
     [SerializeField]
     private List<TetrominosPiece> tetrominoPieces = new List<TetrominosPiece>();
+    [SerializeField]
+    private List<GameObject> TetrominoFX = new List<GameObject>();
+    
+    public TetrominoObstacleType obstacleType { get; private set; }
+    private Action onObstacleActivate;
+    private int obstacleActivationRow;
+    
     private GameSettingSO gameSettingSO;
-    private TetrominoState _tetrominoState;
+    public TetrominoState _tetrominoState { get; private set; }
     private Rigidbody2D rb2D;
+    
     private float currentTime;
     private int layerMask;
 
@@ -41,6 +51,14 @@ public class TetrominoRoot : MonoBehaviour
         currentTime = 0f;
         SetTetrominoState(TetrominoState.FallingClassic);
         layerMask = LayerMask.GetMask("Tetrominos", "Default", "Player");
+        obstacleType = TetrominoObstaclePicker.PickObstacleType();
+
+        if (obstacleType != TetrominoObstacleType.None)
+        {
+            ApplyObstacleBehaviour();
+            obstacleActivationRow = Random.Range(gameSettingSO.TETROMINO_OBSTACLE_MIN_ACTIVATE_HEIGHT,
+                gameSettingSO.TETROMINO_OBSTACLE_MAX_ACTIVATE_HEIGHT);
+        }
     }
 
     private void FixedUpdate()
@@ -55,12 +73,29 @@ public class TetrominoRoot : MonoBehaviour
             SetFallingPhysicsState();
             return;
         }
-        
+
         if (CanMove())
         {
             currentTime = 0f;
             Move();
+            TryActivateObstacle();
         }
+        
+    }
+
+    private void TryActivateObstacle()
+    {
+        if (obstacleType == TetrominoObstacleType.None)
+        {
+            return;
+        }
+        
+        if (transform.position.y != obstacleActivationRow)
+        {
+            return;
+        }
+        
+        onObstacleActivate?.Invoke();
     }
 
     private bool CheckCanSwitchToPhysics()
@@ -153,6 +188,7 @@ public class TetrominoRoot : MonoBehaviour
     private void SetFallingPhysicsState()
     {
         _tetrominoState = TetrominoState.FallingPhysics;
+        rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb2D.gravityScale = 1f;
 
     }
@@ -168,8 +204,39 @@ public class TetrominoRoot : MonoBehaviour
     private void SetFrozenState()
     {
         _tetrominoState = TetrominoState.Frozen;
-
+        rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     #endregion
+    
+    private void ApplyObstacleBehaviour()
+    {
+        switch (obstacleType)
+        {
+            case TetrominoObstacleType.Ice:
+                onObstacleActivate += () =>
+                {
+                    SetFrozenState();
+                    onObstacleActivate = null;
+                };
+                break;
+            case TetrominoObstacleType.Rock:
+                onObstacleActivate += () =>
+                {
+                    SetFallingPhysicsState();
+                    onObstacleActivate = null;
+                };
+                break;
+            case TetrominoObstacleType.None:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    
+    private void RunTetrominoFX(int _index, bool _activation)
+    {
+        TetrominoFX[_index].SetActive(_activation);
+        TetrominoFX[_index].transform.rotation = Quaternion.identity;
+    }
 }

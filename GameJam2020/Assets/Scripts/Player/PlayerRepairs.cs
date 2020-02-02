@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRepairs : MonoBehaviour
 {
     public float RepairRange = 5f;
-    private List<TetrominosBehaviour> brokenTetrominosInRange = new List<TetrominosBehaviour>();
+    private List<TetrominoRoot> brokenTetrominosInRange = new List<TetrominoRoot>();
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class PlayerRepairs : MonoBehaviour
 
     private void TryAddTetrominos(Collider2D other)
     {
-        var tetromino = other.transform.GetComponent<TetrominosBehaviour>();
+        var tetromino = other.transform.GetComponent<TetrominoRoot>();
         if (tetromino != null)
         {
-            if (tetromino.isBroken)
+            if (tetromino._tetrominoState == TetrominoState.Frozen)
             {
                 if(!brokenTetrominosInRange.Contains(tetromino))
                     brokenTetrominosInRange.Add(tetromino);
@@ -52,13 +52,9 @@ public class PlayerRepairs : MonoBehaviour
             TryAddTetrominos(results[i].collider);
         }
 
-        for (int i = 0; i < brokenTetrominosInRange.Count; i++)
+        foreach (var frozenTetromino in brokenTetrominosInRange)
         {
-            if(brokenTetrominosInRange[i].isBroken && !brokenTetrominosInRange[i].IsSnappedPermanently)
-                brokenTetrominosInRange[i].RepairBlocks();
+            frozenTetromino.SetTetrominoState(TetrominoState.FallingPhysics);
         }
-
     }
-
-
 }
