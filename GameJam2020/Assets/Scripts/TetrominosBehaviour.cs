@@ -245,13 +245,13 @@ public class TetrominosBehaviour : MonoBehaviour
                 if (!IsRotated90Degrees())
                     return;
                 SnapTetrominoToPlace(false);
-                StopBlocks();
+                StopBlocks(true);
             break;
             case 1:
                 FallDownBlocks();
                 break;
             default:
-                StopBlocks();
+                StopBlocks(true);
             break;
         }
         wasBrokenThisGame = true;
@@ -269,7 +269,7 @@ public class TetrominosBehaviour : MonoBehaviour
                 RepairFallDownBLocks();
                 break;
             default:
-                StopBlocks();
+                StopBlocks(false);
                 break;
 
         }
@@ -277,9 +277,9 @@ public class TetrominosBehaviour : MonoBehaviour
         SnapTetrominoToPlace(false);
     }
 
-    public void StopBlocks()
+    public void StopBlocks(bool broken)
     {
-        isBroken = true;
+        isBroken = broken;
         //(myRigidbody.constraints & RigidbodyConstraints2D.FreezeAll) != RigidbodyConstraints2D.FreezeAll
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
