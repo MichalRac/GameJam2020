@@ -35,15 +35,16 @@ public static class GridManager
                 {
                     anyDeactivated = true;
                     consideredTetrominos.Clear();
-                    continue;
                 }
-                consideredTetrominos.Add(new Tuple<Vector2Int, GameObject>(new Vector2Int(i, line), tetrominosPiece.gameObject));
+                else
+                {
+                    consideredTetrominos.Add(new Tuple<Vector2Int, GameObject>(new Vector2Int(i, line), tetrominosPiece.gameObject));
+                }
             }
             else
             {
                 consideredTetrominos.Clear();
                 anyDeactivated = true;
-                continue;
             }
         }
 
