@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,6 +14,7 @@ public  enum TetrominoState
     FallingPhysics,
     PernamentlySnapped,
     Frozen,
+    Exploding
 }
 
 public class TetrominoRoot : MonoBehaviour
@@ -33,10 +35,15 @@ public class TetrominoRoot : MonoBehaviour
     private float currentTime;
     private int layerMask;
 
+    private float explodeDelay = 3f;//in seconds
+    private float explosionForceStrength = 50f;
+    private float explosionRadius = 2f;
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         gameSettingSO = GameSettingFetcher.instance.GetSettings;
+        UpdateTimeIntervalCurrent = gameSettingSO.TETROMINO_FALL_FREQUENCY;
 
         var listToRemove = tetrominoPieces.Where(tetromino => !tetromino.gameObject.activeSelf).ToList();
         foreach (var tetromino in listToRemove)
@@ -134,13 +141,32 @@ public class TetrominoRoot : MonoBehaviour
 
     private bool CanMove()
     {
-        if (currentTime > gameSettingSO.TETROMINO_FALL_FREQUENCY)
+        
+        if (currentTime > UpdateTimeIntervalCurrent)
         {
+            IncreasePace();
+            blocksMovedCounter++;
             return true;
         }
 
         currentTime += Time.fixedDeltaTime;
         return false;
+    }
+    [SerializeField] private float updateTimeIntervalMin = 0.25f;
+    [SerializeField] private float UpdateTimeIntervalCurrent;
+    private int blocksMovedCounter;
+
+    private void IncreasePace()
+    {
+        var settings = GameSettingFetcher.instance.GetSettings;
+        if (blocksMovedCounter > 1 && (settings.BLOCKS_PACE_MOVE_RATE % blocksMovedCounter == 0))
+        {
+            UpdateTimeIntervalCurrent -= UpdateTimeIntervalCurrent * settings.SPAWN_PACE_INCREASE_VALUE;
+            if (UpdateTimeIntervalCurrent < updateTimeIntervalMin)
+                UpdateTimeIntervalCurrent = updateTimeIntervalMin;
+
+            //Debug.Log($"Blocks Move Pace: blocksMovedCounter {blocksMovedCounter} UpdateTimeIntervalCurrent {UpdateTimeIntervalCurrent} settings.BLOCKS_PACE_MOVE_RATE {settings.BLOCKS_PACE_MOVE_RATE}");
+        }
     }
 
     private void Move()
@@ -170,6 +196,10 @@ public class TetrominoRoot : MonoBehaviour
                 break;
             case TetrominoState.PernamentlySnapped:
                 SetPernamentlySnappedState();
+                break;
+            case TetrominoState.Exploding:
+
+                SetExplodeState();
                 break;
             case TetrominoState.Frozen:
                 SetFrozenState();
@@ -206,8 +236,16 @@ public class TetrominoRoot : MonoBehaviour
         rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
+    private void SetExplodeState()
+    {
+        _tetrominoState = TetrominoState.Exploding; //first start fall, then explode after some time
+        rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb2D.gravityScale = 1f;
+        Explode();
+    }
+
     #endregion
-    
+
     private void ApplyObstacleBehaviour()
     {
         switch (obstacleType)
@@ -225,6 +263,14 @@ public class TetrominoRoot : MonoBehaviour
                 onObstacleActivate += () =>
                 {
                     SetFallingPhysicsState();
+                    onObstacleActivate = null;
+                };
+                break;
+            case TetrominoObstacleType.Bomb:
+                onObstacleActivate += () =>
+                {
+                    ChangeColorForBlocks(gameSettingSO.BOMB_TETROMINO_COLOR);
+                    SetExplodeState();
                     onObstacleActivate = null;
                 };
                 break;
@@ -257,6 +303,68 @@ public class TetrominoRoot : MonoBehaviour
             TetrominoFX[i].SetActive(false);
         }
        
+    }
+
+    public void Explode()
+    {
+        rb2D.gravityScale = 1f;
+        StartCoroutine(ExplodeDelayed(explodeDelay));
+        //Debug.Log($"Explode {gameObject.name} myRigidbody.gravityScale {rb2D.gravityScale}");
+    }
+
+    private IEnumerator ExplodeDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        //_tetrominoState = TetrominoState.Exploding;
+        //Debug.Log($"ExplodeDelayed {gameObject.name} myRigidbody.gravityScale {rb2D.gravityScale}");
+        var pos = transform.position;
+        pos.z += 2f;
+        var go = Instantiate(TetrominoFX[2], pos, Quaternion.identity);
+        go.SetActive(true);
+        AddExplosionForce(pos);
+        Destroy(gameObject);
+
+
+    }
+
+    private void AddExplosionForce(Vector3 pos)
+    {
+        var filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.PLAYER_LAYER_NAME),
+            useLayerMask = true
+        };
+
+        var results = new List<RaycastHit2D>();
+        Physics2D.CircleCast(pos, explosionRadius, Vector2.down, filter, results, explosionRadius);
+        Debug.DrawLine(pos, pos + Vector3.down * explosionRadius, Color.red, 1f);
+
+        foreach (var result in results)
+        {
+            var dir3 = (result.transform.position - pos).normalized;
+            var dir2 = new Vector2(dir3.x, dir3.z);
+            if(dir2 == Vector2.zero)
+                dir2 = Vector2.up;
+            if (result.collider.CompareTag(GameSettingFetcher.instance.GetSettings.PLAYER_LAYER_NAME))
+            {
+                GameManager.Instance.EndGame();
+                return;
+            }
+
+            var go = result.collider.gameObject.GetComponent<TetrominoRoot>();
+
+            if (go != null)
+            {
+                //Debug.Log($"AddExplosionForce Hit, {go.name}");
+                //if (!go.IsSnappedPermanently)
+                    go.SetExplodeForce(dir2);//.AddForce(dir2 * explosionForceStrength, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    public void SetExplodeForce(Vector2 dir)
+    {
+        rb2D.AddForce(dir * explosionForceStrength, ForceMode2D.Impulse);
     }
 }
 

@@ -713,6 +713,7 @@ MonoBehaviour:
   TetrominoFX:
   - {fileID: 5793640635876066397}
   - {fileID: 4586267779071101205}
+  - {fileID: 8206388397496334993, guid: a07678898bb9a9c4bb7e266bb690bbd1, type: 3}
 --- !u!1001 &1013149441630015433
 PrefabInstance:
   m_ObjectHideFlags: 0
