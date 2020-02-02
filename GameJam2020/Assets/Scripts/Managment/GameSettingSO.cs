@@ -33,4 +33,10 @@ public class GameSettingSO : ScriptableObject
     public float TETROMINO_FREEZE_WEIGHT_CHANCE = 15f;
     public float TETROMINO_FALL_WEIGHT_CHANCE = 15f;
     public float TETROMINO_EXPLODE_CHANCE = 15f;
+
+    [Space(15)]
+    public float SPAWN_PACE_INCREASE_VALUE = 0.25f; //every x blocks spawned increase pace by value
+    public int SPAWN_INCREASE_TICK = 10; //every x blocks spawned increase pace by value
+    public float BLOCKS_PACE_INCREASE_VALUE = 0.25f;
+    public int BLOCKS_PACE_MOVE_RATE = 5;
 }

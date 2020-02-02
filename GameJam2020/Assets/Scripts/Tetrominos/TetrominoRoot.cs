@@ -43,6 +43,7 @@ public class TetrominoRoot : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         gameSettingSO = GameSettingFetcher.instance.GetSettings;
+        UpdateTimeIntervalCurrent = gameSettingSO.TETROMINO_FALL_FREQUENCY;
 
         var listToRemove = tetrominoPieces.Where(tetromino => !tetromino.gameObject.activeSelf).ToList();
         foreach (var tetromino in listToRemove)
@@ -140,13 +141,32 @@ public class TetrominoRoot : MonoBehaviour
 
     private bool CanMove()
     {
-        if (currentTime > gameSettingSO.TETROMINO_FALL_FREQUENCY)
+        
+        if (currentTime > UpdateTimeIntervalCurrent)
         {
+            IncreasePace();
+            blocksMovedCounter++;
             return true;
         }
 
         currentTime += Time.fixedDeltaTime;
         return false;
+    }
+    [SerializeField] private float updateTimeIntervalMin = 0.25f;
+    [SerializeField] private float UpdateTimeIntervalCurrent;
+    private int blocksMovedCounter;
+
+    private void IncreasePace()
+    {
+        var settings = GameSettingFetcher.instance.GetSettings;
+        if (blocksMovedCounter > 1 && (settings.BLOCKS_PACE_MOVE_RATE % blocksMovedCounter == 0))
+        {
+            UpdateTimeIntervalCurrent -= UpdateTimeIntervalCurrent * settings.SPAWN_PACE_INCREASE_VALUE;
+            if (UpdateTimeIntervalCurrent < updateTimeIntervalMin)
+                UpdateTimeIntervalCurrent = updateTimeIntervalMin;
+
+            //Debug.Log($"Blocks Move Pace: blocksMovedCounter {blocksMovedCounter} UpdateTimeIntervalCurrent {UpdateTimeIntervalCurrent} settings.BLOCKS_PACE_MOVE_RATE {settings.BLOCKS_PACE_MOVE_RATE}");
+        }
     }
 
     private void Move()
@@ -299,7 +319,8 @@ public class TetrominoRoot : MonoBehaviour
         //Debug.Log($"ExplodeDelayed {gameObject.name} myRigidbody.gravityScale {rb2D.gravityScale}");
         var pos = transform.position;
         pos.z += 2f;
-        Instantiate(TetrominoFX[2], pos, Quaternion.identity);
+        var go = Instantiate(TetrominoFX[2], pos, Quaternion.identity);
+        go.SetActive(true);
         AddExplosionForce(pos);
         Destroy(gameObject);
 
