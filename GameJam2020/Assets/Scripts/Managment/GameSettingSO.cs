@@ -16,7 +16,7 @@ public class GameSettingSO : ScriptableObject
     public Color32 FIXED_TETROMINO_COLOR;
     public Color32 FROZEN_TETROMINO_COLOR;
     public Color32 DEFAULT_TETROMINO_COLOR;
-
+    public Color32 EXPLODING_TETROMINO_COLOR;
     [Space(15)]
     
     public string TETROMINOS_LAYER_NAME = "Tetrominos";
@@ -32,4 +32,5 @@ public class GameSettingSO : ScriptableObject
     public float TETROMINO_REGULAR_WEIGHT_CHANCE = 15f;
     public float TETROMINO_FREEZE_WEIGHT_CHANCE = 15f;
     public float TETROMINO_FALL_WEIGHT_CHANCE = 15f;
+    public float TETROMINO_EXPLODE_CHANCE = 15f;
 }

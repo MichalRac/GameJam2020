@@ -9,7 +9,8 @@ namespace Tetrominos
     {
         Ice,
         Rock,
-        None
+        None,
+        Bomb
     }
     
     public static class TetrominoObstaclePicker
@@ -19,6 +20,7 @@ namespace Tetrominos
             GameSettingFetcher.instance.GetSettings.TETROMINO_FREEZE_WEIGHT_CHANCE,
             GameSettingFetcher.instance.GetSettings.TETROMINO_FALL_WEIGHT_CHANCE,
             GameSettingFetcher.instance.GetSettings.TETROMINO_REGULAR_WEIGHT_CHANCE,
+            GameSettingFetcher.instance.GetSettings.TETROMINO_EXPLODE_CHANCE
         };
 
         public static TetrominoObstacleType PickObstacleType()

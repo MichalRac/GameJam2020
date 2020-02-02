@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Started)
+        if (GameManager.Instance != null && GameManager.Instance.CurrentGameState != GameManager.GameState.Started)
             return;
 
         CheckGrounded();
