@@ -77,7 +77,6 @@ public class TetrominosBehaviour : MonoBehaviour
                 BrokeBlocksRandom();
             }
             else
-            
                 UpdateTetrominosPositions();
         }
     }
