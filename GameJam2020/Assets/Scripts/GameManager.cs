@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState CurrentGameState = GameState.Lobby;
-
+    public GameObject GameOverPanel;
 
     public enum GameState
     {
@@ -37,12 +37,14 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        GameOverPanel.SetActive(false);
         CurrentGameState = GameState.Started;
     }
 
     public void EndGame()
     {
         CurrentGameState = GameState.Finnished;
+        GameOverPanel.SetActive(true);
         Debug.Log("End Game");
     }
 }

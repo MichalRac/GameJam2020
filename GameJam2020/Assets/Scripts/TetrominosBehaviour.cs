@@ -8,6 +8,8 @@ public class TetrominosBehaviour : MonoBehaviour
     [SerializeField] List<TetrominosPiece> tetrominosPieces = new List<TetrominosPiece>();
     List<GameObject> tetrominosPiecesGos =  new List<GameObject>();
     public float UpdateTimeInterval = 1f; //in seconds
+    [SerializeField] private float updateTimeIntervalMin = 0.25f;
+    [SerializeField] private float UpdateTimeIntervalCurrent;
     public Color32 FrozenPieceColor = new Color32(255, 255, 255, 255);
     public Color32 ExplodePieceColor = new Color32(255, 100, 0, 255);
     private Color32 defaultColor;
@@ -30,9 +32,12 @@ public class TetrominosBehaviour : MonoBehaviour
     private float explodeDelay = 3f;//in seconds
     private float explosionForceStrength = 50f;
     private float explosionRadius = 2f;
+    private int blocksMovedCounter;
+
 
     public void Start()
     {
+        UpdateTimeIntervalCurrent = UpdateTimeInterval;
         wasBrokenThisGame = false;
         myRenderer = GetComponentInChildren<SpriteRenderer>();
         defaultColor = myRenderer.color;
@@ -93,14 +98,28 @@ public class TetrominosBehaviour : MonoBehaviour
     {
 
         currentTime += Time.deltaTime;
-        if (currentTime > UpdateTimeInterval)
+        if (currentTime > UpdateTimeIntervalCurrent)
         {
+            IncreasePace();
+            blocksMovedCounter++;
             currentTime = 0f;
             MoveTetrominos();
+            
         }
     }
 
+    private void IncreasePace()
+    {
+        var settings = GameSettingFetcher.instance.GetSettings;
+        if (blocksMovedCounter > 1 && (settings.BLOCKS_PACE_MOVE_RATE % blocksMovedCounter == 0))
+        {
+            UpdateTimeIntervalCurrent -= UpdateTimeIntervalCurrent * settings.SPAWN_PACE_INCREASE_VALUE;
+            if (UpdateTimeIntervalCurrent < updateTimeIntervalMin)
+                UpdateTimeIntervalCurrent = updateTimeIntervalMin;
 
+            //Debug.Log($"Blocks Move Pace: blocksMovedCounter {blocksMovedCounter} UpdateTimeIntervalCurrent {UpdateTimeIntervalCurrent} settings.BLOCKS_PACE_MOVE_RATE {settings.BLOCKS_PACE_MOVE_RATE}");
+        }
+    }
 
     private bool CheckCanMoveToNextPosition()
     {
@@ -364,6 +383,7 @@ public class TetrominosBehaviour : MonoBehaviour
 
             if (result.collider.CompareTag(GameSettingFetcher.instance.GetSettings.PLAYER_LAYER_NAME))
             {
+                Debug.Log("Player killed by bomb!");
                 GameManager.Instance.EndGame();
                 return;
             }
