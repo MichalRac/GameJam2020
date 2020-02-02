@@ -38,6 +38,7 @@ public static class GridManager
                 }
                 else
                 {
+                    if(tetrominosPiece != null && tetrominosPiece.gameObject != null)
                     consideredTetrominos.Add(new Tuple<Vector2Int, GameObject>(new Vector2Int(i, line), tetrominosPiece.gameObject));
                 }
             }
