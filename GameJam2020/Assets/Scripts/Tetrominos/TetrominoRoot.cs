@@ -367,5 +367,11 @@ public class TetrominoRoot : MonoBehaviour
     {
         rb2D.AddForce(dir * explosionForceStrength, ForceMode2D.Impulse);
     }
+
+    public void RefreshCollider()
+    {
+        CompositeCollider2D myCollider = transform.GetComponent<CompositeCollider2D>();
+        myCollider.GenerateGeometry();
+    }
 }
 

@@ -29,7 +29,7 @@ public static class GridManager
 
         for (int i = 0; i < blocksInRow; i++)
         {
-            if(tetromnoGrid.TryGetValue(new Vector2Int(i, line), out var tetrominosPiece))
+            if(tetromnoGrid.TryGetValue(new Vector2Int(i, line), out var tetrominosPiece) && !anyDeactivated)
             {
                 if(!tetrominosPiece.isPernamentlySnapped)
                 {
@@ -53,8 +53,12 @@ public static class GridManager
         {
             foreach(var pair in consideredTetrominos)
             {
+                TetrominoRoot brokenTetromino = pair.Item2.transform.GetComponentInParent<TetrominoRoot>();
                 tetromnoGrid.Remove(pair.Item1);
                 UnityEngine.Object.Destroy(pair.Item2);
+
+                brokenTetromino.RefreshCollider();
+                
             }
         }
     }

@@ -38,6 +38,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlockBorder
       objectReference: {fileID: 0}
+    - target: {fileID: 3239627315848657639, guid: f89a426007ba9554a8471c07ffa9fe78,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239627315848657639, guid: f89a426007ba9554a8471c07ffa9fe78,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4236563617874046871, guid: f89a426007ba9554a8471c07ffa9fe78,
         type: 3}
       propertyPath: m_UsedByComposite
@@ -62,6 +72,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399825482628552495, guid: f89a426007ba9554a8471c07ffa9fe78,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399825482628552495, guid: f89a426007ba9554a8471c07ffa9fe78,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7495904673886164085, guid: f89a426007ba9554a8471c07ffa9fe78,
         type: 3}
