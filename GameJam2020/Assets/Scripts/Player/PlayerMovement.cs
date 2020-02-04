@@ -27,6 +27,12 @@ public class PlayerMovement : MonoBehaviour
     private float threshold = 0.1f;
     private float jumpTimeThreshold = 0.3f; //how often can you jump?
     private float currentJumpTime;
+    private bool doubleJumped;
+    private Animator myAnimator;
+
+   [SerializeField]
+    private SpriteRenderer mySprite;
+
 
     void Start()
     {
@@ -34,60 +40,101 @@ public class PlayerMovement : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider2D>();
         playerHalfHeight = myCollider.size.y /2f;
         playerHalfWidth = myCollider.size.x / 2f;
+
+        myAnimator = GetComponentInChildren<Animator>();
+        mySprite = myAnimator.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.CurrentGameState != GameManager.GameState.Started)
+            return;
+
         CheckGrounded();
 
         var dt = Time.deltaTime;
         var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+        //var vertical = Input.GetAxis("Vertical");
+        var jump = Input.GetButtonDown("Jump");
+
+        ProcessTetrominoFixAction();
 
         int directionModifier = horizontal > 0 ? 1 : -1;
 
-        if (Input.GetButton("Fire2"))
-        {
-            var raycastHit = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, transform.position.y - 1));
-            var go = raycastHit.collider.gameObject.GetComponent<TetrominosBehaviour>();
-
-            if (go != null)
-            {
-                go.SnapTetrominoToPlace();
-            }
-        }
-
-
-        targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed *  horizontal, Acceleration, dt);
-
-        //targetVelocityY = IncrementTowards(targetVelocityY, MoveSpeed * vertical, Acceleration, dt);
-        //if (isGrounded && vertical > 0f)
-        //    targetVelocityY = JumpForce;
-        //else
-        //    targetVelocityY = myRigidbody.velocity.y;
-
-
-        //velocityChange = (targetVelocity - myRigidbody.velocity);
-        //velocityNorm = velocityChange;
-        //velocityNorm.Normalize();
-        //magnitude = Mathf.Clamp(velocityChange.magnitude, -MaxMoveSpeed, MaxMoveSpeed);
-        //velocityChange = velocityNorm * magnitude;
+        targetVelocityX = IncrementTowards(targetVelocityX, MoveSpeed * horizontal, Acceleration, dt);
         currentJumpTime += dt;
-        if (isGrounded && vertical > 0f)
+        if (isGrounded && jump || !isGrounded && jump && !doubleJumped)
         {
-            if (currentJumpTime > jumpTimeThreshold)
+            //if (currentJumpTime > jumpTimeThreshold)
             {
                 currentJumpTime = 0f;
                 myRigidbody.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+
+                if (!isGrounded)
+                    doubleJumped = true;
             }
         }
 
-        //targetVelocityY = Mathf.Clamp(myRigidbody.velocity.y,-maxTargetVelocityY, maxTargetVelocityY);
         targetVelocityY = myRigidbody.velocity.y;
         targetVelocity = targetVelocityX * Vector2.right + targetVelocityY * Vector2.up;
-        //myRigidbody.AddForce(velocityChange, ForceMode2D.Force);
         myRigidbody.velocity = targetVelocity;
 
+        if (isGrounded && targetVelocityX == 0f)
+        {
+            myAnimator.SetBool("isWalking", false);
+            myAnimator.SetBool("isAfloat", false);
+        }
+        else if (isGrounded && targetVelocityX != 0)
+
+        {
+            myAnimator.SetBool("isWalking", true);
+            myAnimator.SetBool("isAfloat", false);
+        }
+
+        else
+        {
+            myAnimator.SetBool("isAfloat", true);
+        }
+
+        if (horizontal < 0.0f)
+        {
+
+            mySprite.flipX = true;
+        }
+        else if (horizontal >0f)
+        {
+            mySprite.flipX = false;
+        }
+    }
+
+    private void ProcessTetrominoFixAction()
+    {
+        if (Input.GetButton("Fire3"))
+        {
+
+            var tetrominoFilter = new ContactFilter2D
+            {
+                layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
+                useLayerMask = true
+            };
+
+            var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
+            var results = new List<RaycastHit2D>();
+            Physics2D.Raycast(playerFeetPos, Vector2.down, tetrominoFilter, results, 0.5f);
+
+            foreach (var result in results)
+            {
+                var go = result.collider.gameObject.GetComponent<TetrominoRoot>();
+
+                if (go != null)
+                {
+                    if(go._tetrominoState != TetrominoState.FallingPhysics) continue;
+                    
+                    go.SetTetrominoState(TetrominoState.PernamentlySnapped);
+                    doubleJumped = false;
+                }
+            }
+        }
     }
 
 
@@ -107,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        var rayDist = 0.01f;
+        var rayDist = 0.05f;
         isGrounded = false;
         var playerFeetPos = transform.position - new Vector3(0f, playerHalfHeight, 0f);
         var playerFeetPosLeftSide = playerFeetPos - new Vector3(-playerHalfWidth, 0f, 0f);
@@ -115,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
         var filter = new ContactFilter2D
         {
-            layerMask = LayerMask.GetMask("Default"),
+            layerMask = LayerMask.GetMask(GameSettingFetcher.instance.GetSettings.TETROMINOS_LAYER_NAME, GameSettingFetcher.instance.GetSettings.DEFAULT_LAYER_NAME),
             useLayerMask = true
         };
         var results = new List<RaycastHit2D>();
@@ -137,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
             if (results[i].distance <= threshold)
             {
                 isGrounded = true;
+                doubleJumped = false;
                 break;
             }
         }
